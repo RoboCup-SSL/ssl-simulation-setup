@@ -40,6 +40,16 @@ services:
     ports:
       - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
 
+  ssl-vision-client:
+    image: robocupssl/ssl-vision-client:latest
+    ports:
+      - 8081:8082/tcp
+
+  ssl-status-board:
+    image: robocupssl/ssl-status-board:latest
+    ports:
+      - 8082:8082/tcp
+
   tigers:
     image: robocupssl/ubuntu-vnc:latest
     build:

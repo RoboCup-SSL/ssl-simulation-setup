@@ -1,5 +1,12 @@
 # Simulation Setup for virtual Small Size League Tournament
 
+---
+**Note**
+
+This repo is still in draft mode and subject to change.
+
+---
+
 ## Startup
 
 Start all containers:
@@ -17,7 +24,16 @@ Two dummy teams are available: `tigers` and `erforce`, password = username.
  * All teams have view access to all VNC sessions, to make sure nobody is touching their system during a match
  * A team may submit a custom docker image with additional dependencies
  * The home folder is backed by a docker volume. Teams can check out their code here, and it will survive container restarts and rebuilds
+ * The field can be viewed with the ssl-vision-client in the browser
+ * The ssl-status-board shows the game state in the browser
 
+TODOs:
+ * How to make ssl-game-controller available?
+   * Password protection via nginx?
+   * Browser in VNC session and authentication via Guacamole?
+ * Integrate a simulator and check if multicast, etc works
+ * Check if team integration and custom team image is practical
+ * Clarify integration with ssl.robocup.org or similar
 
 ## Shutdown and cleanup
 

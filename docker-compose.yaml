@@ -60,23 +60,13 @@ services:
     ports:
       - 5901/tcp
 
-# TODO final solution should have an nginx with valid certificates
-  #  nginx:
-  #    image: nginx
-  #    restart: always
-  #    volumes:
-  #      - ./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro
-  #      - ./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro
-  #      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-  #      - ./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro
-  #    ports:
-  #      - 8443:443
-  #    links:
-  #      - guacamole
-  #    networks:
-  #      guacnetwork_compose:
-  #    # run nginx
-  #    command: /bin/bash -c "nginx -g 'daemon off;'"
+  nginx:
+    image: nginx:1.19
+    volumes:
+      - ./init/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
 
 volumes:
   guacd-drive:

@@ -13,15 +13,12 @@ ENV HOME=/home/default \
     VNC_RESOLUTION=1280x1024 \
     VNC_PW=vncpassword
 
-RUN useradd -ms /bin/bash default
-
-WORKDIR $HOME
-
-ADD setup.sh $DOCKER_DIR/
+COPY setup.sh $DOCKER_DIR/
 RUN /bin/bash $DOCKER_DIR/setup.sh
+COPY startup.sh $DOCKER_DIR/
 
-ADD startup.sh $DOCKER_DIR/
-
+RUN useradd -ms /bin/bash default
+WORKDIR $HOME
 USER default
 
 ENTRYPOINT ["/docker/startup.sh"]

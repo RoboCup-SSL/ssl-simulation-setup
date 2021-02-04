@@ -4,13 +4,12 @@ import (
 	"net"
 )
 
-const maxDatagramSize = 8192
-
 type UdpProxy struct {
 	sourceAddress string
 	targetAddress string
 	server        *UdpServer
 	clients       map[string]*Client
+	Stoppable
 }
 
 type Client struct {

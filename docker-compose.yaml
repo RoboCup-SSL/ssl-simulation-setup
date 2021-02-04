@@ -9,6 +9,9 @@ services:
     volumes:
       - guacd-drive:/drive:rw
       - guacd-record:/record:rw
+    networks:
+      - mgmt
+      - match
 
   postgres:
     image: postgres:13
@@ -25,6 +28,8 @@ services:
     volumes:
       - ./init/postgres:/docker-entrypoint-initdb.d:ro
       - postgres-data:/var/lib/postgresql/data:rw
+    networks:
+      - mgmt
 
   guacamole:
     image: guacamole/guacamole:1.3.0
@@ -44,15 +49,19 @@ services:
       - guacd
     ports:
       - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
+    networks:
+      - mgmt
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.2.0
-    command: [ "-visionAddress", "224.5.23.2:10020" ]
+    command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: always
     mem_limit: 50m
     cpus: 0.5
     ports:
       - 8081:8082/tcp
+    networks:
+      - match
 
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.1.0
@@ -61,10 +70,12 @@ services:
     cpus: 0.5
     ports:
       - 8082:8082/tcp
+    networks:
+      - match
 
   ssl-game-controller:
     image: robocupssl/ssl-game-controller:2.5.1
-    command: [ "-visionAddress", "224.5.23.2:10020", "-address", ":8081" ]
+    command: [ "-visionAddress", "224.5.23.2:10006", "-address", ":8081" ]
     restart: always
     mem_limit: 50m
     cpus: 0.5
@@ -72,8 +83,10 @@ services:
       - game-controller-config:/config:rw
     ports:
       - 8083:8081/tcp
+    networks:
+      - match
 
-  simulator:
+  grsim:
     image: robocupssl/grsim:latest
     restart: always
     mem_limit: 50m
@@ -82,6 +95,26 @@ services:
       - 10300/udp
       - 10301/udp
       - 10302/udp
+    networks:
+      - simulator
+
+  simulator:
+    image: ssl-simulation-proxy
+    command:
+      - "udp;:10300;grsim:10300"
+      - "udp;:10301;grsim:10301"
+      - "udp;:10302;grsim:10302"
+      - "mc;224.5.23.2:10020;224.5.23.2:10006"
+    restart: always
+    mem_limit: 50m
+    cpus: 0.1
+    ports:
+      - 10300/udp
+      - 10301/udp
+      - 10302/udp
+    networks:
+      - simulator
+      - match
 
   tigers:
     image: robocupssl/ubuntu-vnc-java:latest
@@ -92,6 +125,8 @@ services:
       - tigers-data:/home/default:rw
     ports:
       - 5901/tcp
+    networks:
+      - match
 
   erforce:
     image: robocupssl/ubuntu-vnc:latest
@@ -102,6 +137,8 @@ services:
       - erforce-data:/home/default:rw
     ports:
       - 5901/tcp
+    networks:
+      - match
 
   nginx:
     image: nginx:1.19
@@ -113,6 +150,9 @@ services:
     ports:
       - 80:80/tcp
       - 443:443/tcp
+    networks:
+      - mgmt
+      - match
 
 volumes:
   guacd-drive:
@@ -121,3 +161,8 @@ volumes:
   game-controller-config:
   tigers-data:
   erforce-data:
+
+networks:
+  mgmt:
+  match:
+  simulator:

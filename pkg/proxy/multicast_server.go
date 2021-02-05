@@ -38,11 +38,15 @@ func (r *MulticastServer) Stop() {
 func (r *MulticastServer) receive(multicastAddress string) {
 	var currentIfiIdx = 0
 	for r.isRunning() {
-		ifis, _ := net.Interfaces()
-		currentIfiIdx = (currentIfiIdx + 1) % len(ifis)
+		ifis := r.interfaces()
+		currentIfiIdx = currentIfiIdx % len(ifis)
 		ifi := ifis[currentIfiIdx]
 		r.receiveOnInterface(multicastAddress, ifi)
-		time.Sleep(1 * time.Second)
+		currentIfiIdx++
+		if currentIfiIdx >= len(ifis) {
+			// cycled though all interfaces once, make a short break to avoid producing endless log messages
+			time.Sleep(1 * time.Second)
+		}
 	}
 }
 
@@ -50,6 +54,22 @@ func (r *MulticastServer) isRunning() bool {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 	return r.running
+}
+
+func (r *MulticastServer) interfaces() (interfaces []net.Interface) {
+	interfaces = []net.Interface{}
+	ifis, err := net.Interfaces()
+	if err != nil {
+		log.Println("Could not get available interfaces: ", err)
+	}
+	for _, ifi := range ifis {
+		if ifi.Flags&net.FlagMulticast == 0 || // No multicast support
+			r.skipInterface(ifi.Name) {
+			continue
+		}
+		interfaces = append(interfaces, ifi)
+	}
+	return
 }
 
 func (r *MulticastServer) skipInterface(ifiName string) bool {

@@ -73,9 +73,17 @@ services:
     networks:
       - match
 
-  ssl-game-controller:
-    image: robocupssl/ssl-game-controller:2.5.1
-    command: [ "-visionAddress", "224.5.23.2:10006", "-address", ":8081" ]
+  ssl-game-controller-private:
+    image: robocupssl/ssl-game-controller:2.6.0
+    command:
+      - "-visionAddress"
+      - "224.5.23.2:11006"
+      - "-trackerAddress"
+      - "224.5.23.2:11010"
+      - "-publishAddress"
+      - "224.5.23.1:11003"
+      - "-address"
+      - ":8081"
     restart: always
     mem_limit: 50m
     cpus: 0.5
@@ -84,6 +92,26 @@ services:
     ports:
       - 8083:8081/tcp
     networks:
+      - referee
+
+  ssl-game-controller-public:
+    image: g3force/proxy-tcp-udp-mc:0.1.0
+    command:
+      - "tcp,:10007,ssl-game-controller-private:10007,AutoRef"
+      - "tcp,:10008,ssl-game-controller-private:10008,Team"
+      - "tcp,:10011,ssl-game-controller-private:10011,RemoteCtrl"
+      - "mc,224.5.23.1:11003,224.5.23.1:10003,Referee"
+      - "mc,224.5.23.2:10006,224.5.23.2:11006,Vision"
+      - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
+    restart: always
+    mem_limit: 50m
+    cpus: 0.1
+    ports:
+      - 10007/tcp
+      - 10008/tcp
+      - 10011/tcp
+    networks:
+      - referee
       - match
 
   grsim:
@@ -99,12 +127,12 @@ services:
       - simulator
 
   simulator:
-    image: ssl-simulation-proxy
+    image: g3force/proxy-tcp-udp-mc:0.1.0
     command:
-      - "udp;:10300;grsim:10300"
-      - "udp;:10301;grsim:10301"
-      - "udp;:10302;grsim:10302"
-      - "mc;224.5.23.2:10020;224.5.23.2:10006"
+      - "udp,:10300,grsim:10300,Control"
+      - "udp,:10301,grsim:10301,Blue"
+      - "udp,:10302,grsim:10302,Yellow"
+      - "mc,224.5.23.2:10020,224.5.23.2:10006,Vision"
     restart: always
     mem_limit: 50m
     cpus: 0.1
@@ -166,3 +194,4 @@ networks:
   mgmt:
   match:
   simulator:
+  referee:

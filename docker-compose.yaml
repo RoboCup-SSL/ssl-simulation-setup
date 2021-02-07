@@ -10,7 +10,7 @@ services:
       - guacd-drive:/drive:rw
       - guacd-record:/record:rw
     networks:
-      - mgmt
+      - expose
       - match
 
   postgres:
@@ -29,7 +29,7 @@ services:
       - ./init/postgres:/docker-entrypoint-initdb.d:ro
       - postgres-data:/var/lib/postgresql/data:rw
     networks:
-      - mgmt
+      - expose
 
   guacamole:
     image: guacamole/guacamole:1.3.0
@@ -48,9 +48,9 @@ services:
     links:
       - guacd
     ports:
-      - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
+      - 8080/tcp # Guacamole is on :8080/guacamole, not /.
     networks:
-      - mgmt
+      - expose
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.2.0
@@ -59,7 +59,7 @@ services:
     mem_limit: 50m
     cpus: 0.5
     ports:
-      - 8081:8082/tcp
+      - 8082/tcp
     networks:
       - match
 
@@ -69,9 +69,10 @@ services:
     mem_limit: 50m
     cpus: 0.5
     ports:
-      - 8082:8082/tcp
+      - 8082/tcp
     networks:
       - match
+      - expose
 
   ssl-game-controller-private:
     image: robocupssl/ssl-game-controller:2.6.0
@@ -90,9 +91,10 @@ services:
     volumes:
       - game-controller-config:/config:rw
     ports:
-      - 8083:8081/tcp
+      - 8081/tcp
     networks:
       - referee
+      - expose
 
   ssl-game-controller-public:
     image: g3force/proxy-tcp-udp-mc:0.1.0
@@ -168,21 +170,27 @@ services:
     networks:
       - match
 
-  nginx:
-    image: nginx:1.19
-    restart: always
+  caddy:
+    image: caddy:2.2.1-alpine
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.5
-    volumes:
-      - ./init/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    environment:
+      - CADDY_ROOT_DOMAIN
     ports:
-      - 80:80/tcp
-      - 443:443/tcp
+      - "${CADDY_EXPOSE_PORT_HTTP}"
+      - "${CADDY_EXPOSE_PORT_HTTPS}"
+    volumes:
+      - ./init/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./init/caddy/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
-      - mgmt
-      - match
+      - expose
 
 volumes:
+  caddy_data:
+  caddy_config:
   guacd-drive:
   guacd-record:
   postgres-data:
@@ -191,7 +199,7 @@ volumes:
   erforce-data:
 
 networks:
-  mgmt:
+  expose:
   match:
   simulator:
   referee:

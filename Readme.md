@@ -49,3 +49,21 @@ the guacamole version changes, the script might need to be generated again with:
 ```shell
 docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > init/postgres/01_initdb.sql
 ```
+
+
+Run single local field and expose caddy on ports 80 and 443 on the host:
+```shell
+docker-compose up
+```
+
+Spin up a new virtual field called `field-a`:
+```shell
+export FIELD_NAME=field-a
+docker-compose -p ${FIELD_NAME} --env-file field.env up
+```
+
+Start a reverse proxy that redirects to the individual fields:
+```shell
+docker-compose -p caddy -f caddy.docker-compose.yaml up
+```
+

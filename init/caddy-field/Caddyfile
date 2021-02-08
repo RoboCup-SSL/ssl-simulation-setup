@@ -1,0 +1,29 @@
+http://, https:// {
+    root * /srv
+    file_server
+}
+
+vnc.* {
+    reverse_proxy /guacamole/* guacamole:8080
+    @notGuacamole {
+        not path /guacamole/*
+    }
+    redir @notGuacamole /guacamole/ permanent
+}
+
+gc.* {
+    basicauth {
+        # referee:referee
+        # Passwords can be generated with `caddy hash-password`
+        referee JDJhJDE0JEtDd0FUSElDZVdONDBVSkVFQ3c2Ly5KbzM4dGIwdGFvZnQyNk92LlIuY1VJUEY3MndEaVpD
+    }
+    reverse_proxy ssl-game-controller-private:8081
+}
+
+vision.* {
+    reverse_proxy ssl-vision-client:8082
+}
+
+status-board.* {
+    reverse_proxy ssl-status-board:8082
+}

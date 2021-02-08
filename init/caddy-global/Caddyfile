@@ -8,7 +8,11 @@
     file_server
 }
 
-vnc.{env.CADDY_ROOT_DOMAIN} {
+field-a.{env.CADDY_ROOT_DOMAIN} {
+    reverse_proxy caddy.field-a:80
+}
+
+vnc.field-a.{env.CADDY_ROOT_DOMAIN} {
     reverse_proxy /guacamole/* guacamole:8080
     @notGuacamole {
         not path /guacamole/*
@@ -16,7 +20,7 @@ vnc.{env.CADDY_ROOT_DOMAIN} {
     redir @notGuacamole /guacamole/ permanent
 }
 
-gc.{env.CADDY_ROOT_DOMAIN} {
+gc.field-a.{env.CADDY_ROOT_DOMAIN} {
     basicauth {
         # referee:referee
         # Passwords can be generated with `caddy hash-password`
@@ -25,10 +29,10 @@ gc.{env.CADDY_ROOT_DOMAIN} {
     reverse_proxy ssl-game-controller-private:8081
 }
 
-vision.{env.CADDY_ROOT_DOMAIN} {
+vision.field-a.{env.CADDY_ROOT_DOMAIN} {
     reverse_proxy ssl-vision-client:8082
 }
 
-status-board.{env.CADDY_ROOT_DOMAIN} {
+status-board.field-a.{env.CADDY_ROOT_DOMAIN} {
     reverse_proxy ssl-status-board:8082
 }

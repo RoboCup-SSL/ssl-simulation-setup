@@ -10,7 +10,7 @@ services:
       - guacd-drive:/drive:rw
       - guacd-record:/record:rw
     networks:
-      - expose
+      - guacamole
       - match
 
   postgres:
@@ -29,7 +29,7 @@ services:
       - ./init/postgres:/docker-entrypoint-initdb.d:ro
       - postgres-data:/var/lib/postgresql/data:rw
     networks:
-      - expose
+      - guacamole
 
   guacamole:
     image: guacamole/guacamole:1.3.0
@@ -45,12 +45,14 @@ services:
     depends_on:
       - guacd
       - postgres
-    links:
-      - guacd
     ports:
       - 8080/tcp # Guacamole is on :8080/guacamole, not /.
     networks:
-      - expose
+      guacamole:
+      expose:
+          aliases:
+            - "guacamole.${FIELD_ID}"
+
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.2.0
@@ -61,7 +63,10 @@ services:
     ports:
       - 8082/tcp
     networks:
-      - match
+      match:
+      expose:
+        aliases:
+          - "ssl-vision-client.${FIELD_ID}"
 
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.1.0
@@ -71,8 +76,10 @@ services:
     ports:
       - 8082/tcp
     networks:
-      - match
-      - expose
+      match:
+      expose:
+        aliases:
+          - "ssl-status-board.${FIELD_ID}"
 
   ssl-game-controller-private:
     image: robocupssl/ssl-game-controller:2.6.0
@@ -93,8 +100,10 @@ services:
     ports:
       - 8081/tcp
     networks:
-      - referee
-      - expose
+      referee:
+      expose:
+        aliases:
+          - "ssl-game-controller-private.${FIELD_ID}"
 
   ssl-game-controller-public:
     image: g3force/proxy-tcp-udp-mc:0.1.0
@@ -113,8 +122,8 @@ services:
       - 10008/tcp
       - 10011/tcp
     networks:
-      - referee
-      - match
+      referee:
+      match:
 
   grsim:
     image: robocupssl/grsim:latest
@@ -157,6 +166,7 @@ services:
       - 5901/tcp
     networks:
       - match
+      - guacamole
 
   erforce:
     image: robocupssl/ubuntu-vnc:latest
@@ -169,24 +179,25 @@ services:
       - 5901/tcp
     networks:
       - match
+      - guacamole
 
   caddy:
     image: caddy:2.2.1-alpine
     restart: unless-stopped
     mem_limit: 50m
     cpus: 0.5
-    environment:
-      - CADDY_ROOT_DOMAIN
     ports:
       - "${CADDY_EXPOSE_PORT_HTTP}"
       - "${CADDY_EXPOSE_PORT_HTTPS}"
     volumes:
-      - ./init/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./init/caddy/site:/srv
+      - ./init/caddy-field/Caddyfile:/etc/caddy/Caddyfile
+      - ./init/caddy-field/site:/srv
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - expose
+      expose:
+        aliases:
+          - "caddy.${FIELD_ID}"
 
 volumes:
   caddy_data:
@@ -203,3 +214,4 @@ networks:
   match:
   simulator:
   referee:
+  guacamole:

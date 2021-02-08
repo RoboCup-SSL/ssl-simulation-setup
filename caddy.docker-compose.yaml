@@ -1,0 +1,29 @@
+version: "3.0"
+
+services:
+  caddy:
+    image: caddy:2.2.1-alpine
+    restart: unless-stopped
+    mem_limit: 50m
+    cpus: 0.5
+    environment:
+      - CADDY_ROOT_DOMAIN=localhost
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - ./init/caddy-global/Caddyfile:/etc/caddy/Caddyfile
+      - ./init/caddy-global/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - field-a
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  field-a:
+    external:
+      name: field-a_expose

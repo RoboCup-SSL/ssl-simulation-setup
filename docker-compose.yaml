@@ -51,8 +51,7 @@ services:
       guacamole:
       expose:
           aliases:
-            - "guacamole.${FIELD_ID}"
-
+            - "guacamole.${COMPOSE_PROJECT_NAME}"
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.2.0
@@ -66,7 +65,7 @@ services:
       match:
       expose:
         aliases:
-          - "ssl-vision-client.${FIELD_ID}"
+          - "ssl-vision-client.${COMPOSE_PROJECT_NAME}"
 
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.1.0
@@ -79,7 +78,7 @@ services:
       match:
       expose:
         aliases:
-          - "ssl-status-board.${FIELD_ID}"
+          - "ssl-status-board.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-private:
     image: robocupssl/ssl-game-controller:2.6.0
@@ -103,7 +102,7 @@ services:
       referee:
       expose:
         aliases:
-          - "ssl-game-controller-private.${FIELD_ID}"
+          - "ssl-game-controller-private.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-public:
     image: g3force/proxy-tcp-udp-mc:0.1.0
@@ -181,27 +180,7 @@ services:
       - match
       - guacamole
 
-  caddy:
-    image: caddy:2.2.1-alpine
-    restart: unless-stopped
-    mem_limit: 50m
-    cpus: 0.5
-    ports:
-      - "${CADDY_EXPOSE_PORT_HTTP}"
-      - "${CADDY_EXPOSE_PORT_HTTPS}"
-    volumes:
-      - ./init/caddy-field/Caddyfile:/etc/caddy/Caddyfile
-      - ./init/caddy-field/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
-    networks:
-      expose:
-        aliases:
-          - "caddy.${FIELD_ID}"
-
 volumes:
-  caddy_data:
-  caddy_config:
   guacd-drive:
   guacd-record:
   postgres-data:

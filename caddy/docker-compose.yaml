@@ -12,12 +12,13 @@ services:
       - "80:80/tcp"
       - "443:443/tcp"
     volumes:
-      - ./init/caddy-global/Caddyfile:/etc/caddy/Caddyfile
-      - ./init/caddy-global/site:/srv
+      - ./init/Caddyfile:/etc/caddy/Caddyfile
+      - ./init/site:/srv
       - caddy_data:/data
       - caddy_config:/config
     networks:
       - field-a
+      - field-b
 
 volumes:
   caddy_data:
@@ -27,3 +28,6 @@ networks:
   field-a:
     external:
       name: field-a_expose
+  field-b:
+    external:
+      name: field-b_expose

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <title>SSL Virtual Tournament Field</title>
+
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            color: aliceblue;
+            font-size: xx-large;
+            text-align: center;
+        }
+
+        a {
+            color: ghostwhite;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 0;
+            grid-row-gap: 0;
+            align-content: center;
+        }
+
+        .field {
+            height: 5em;
+            text-align: center;
+            align-content: baseline;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: darkgrey;
+            opacity: 0.9;
+            margin: 3em;
+            border-radius: 0.5em;
+        }
+    </style>
+</head>
+<body>
+<h1>Small Size League Virtual Tournament Field</h1>
+
+<div class="fields">
+    <a class="link" href="@protocol@://vnc.@parent-domain@">
+        <div class="field">VNC Server</div>
+    </a>
+    <a class="link" href="@protocol@://gc.@parent-domain@">
+        <div class="field">Game Controller</div>
+    </a>
+    <a class="link" href="@protocol@://vision.@parent-domain@">
+        <div class="field">Vision Viewer</div>
+    </a>
+    <a class="link" href="@protocol@://status-board.@parent-domain@">
+        <div class="field">Status Board</div>
+    </a>
+</div>
+</body>
+
+<script>
+    for (const link of document.getElementsByClassName("link")) {
+        if (link.hasAttribute('href')) {
+            const href = link.getAttribute('href')
+                .replace('@parent-domain@', window.location.hostname)
+                .replace('@protocol@:', window.location.protocol);
+            link.setAttribute('href', href);
+        }
+    }
+</script>
+</html>

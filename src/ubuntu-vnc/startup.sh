@@ -3,6 +3,16 @@
 # Fail on errors
 set -eou pipefail
 
+if [[ -v SSH_PUBLIC_KEY ]]; then
+  mkdir -p ~/.ssh
+  echo "${SSH_PUBLIC_KEY}" > ~/.ssh/authorized_keys
+fi
+
+if [[ ! -f ~/.ssh/ssh_host_rsa_key ]]; then
+  ssh-keygen -t rsa -f ~/.ssh/ssh_host_rsa_key -N ''
+fi
+/usr/sbin/sshd -f /etc/ssh/sshd_config
+
 echo "Cleanup old VNC server locks"
 vncserver -kill "$DISPLAY" &>> .vnc_startup.log \
     || rm -rfv /tmp/.X*-lock /tmp/.X11-unix &>> .vnc_startup.log \

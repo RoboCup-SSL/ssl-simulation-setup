@@ -21,7 +21,7 @@ services:
     environment:
       PGDATA: /var/lib/postgresql/data/guacamole
       POSTGRES_DB: guacamole_db
-      POSTGRES_PASSWORD: ChooseYourOwnPasswordHere1234
+      POSTGRES_PASSWORD:
       POSTGRES_USER: guacamole_user
     ports:
       - 5432/tcp
@@ -40,7 +40,7 @@ services:
       GUACD_HOSTNAME: guacd
       POSTGRES_DATABASE: guacamole_db
       POSTGRES_HOSTNAME: postgres
-      POSTGRES_PASSWORD: ChooseYourOwnPasswordHere1234
+      POSTGRES_PASSWORD:
       POSTGRES_USER: guacamole_user
     depends_on:
       - guacd
@@ -157,8 +157,10 @@ services:
   tigers:
     image: robocupssl/ubuntu-vnc-java:latest
     restart: always
-    mem_limit: 2g
-    cpus: 2
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
     volumes:
       - tigers-data:/home/default:rw
     ports:
@@ -170,8 +172,10 @@ services:
   erforce:
     image: robocupssl/ubuntu-vnc:latest
     restart: always
-    mem_limit: 2g
-    cpus: 2
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
     volumes:
       - erforce-data:/home/default:rw
     ports:

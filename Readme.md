@@ -54,6 +54,7 @@ In the default setup, you can log in with these credentials:
    * Team: `tigers:tigers` or `erforce:erforce`
  * Game Controller: `referee:referee`
 
+Note: In Guacamole, you can press Ctrl + Shift + Alt to open a menu where you can copy files from/to the VNC session.
 
 ## Shutdown and cleanup
 

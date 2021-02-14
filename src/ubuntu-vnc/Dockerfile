@@ -18,6 +18,7 @@ RUN /bin/bash $DOCKER_DIR/setup.sh
 COPY Xvnc-session /etc/X11/Xvnc-session
 RUN chmod 755 /etc/X11/Xvnc-session
 COPY startup.sh $DOCKER_DIR/
+COPY sshd_config /etc/ssh/sshd_config
 
 RUN useradd -ms /bin/bash default
 WORKDIR $HOME

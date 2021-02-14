@@ -15,10 +15,13 @@ ENV HOME=/home/default \
 
 COPY setup.sh $DOCKER_DIR/
 RUN /bin/bash $DOCKER_DIR/setup.sh
+COPY Xvnc-session /etc/X11/Xvnc-session
+RUN chmod 755 /etc/X11/Xvnc-session
 COPY startup.sh $DOCKER_DIR/
 
 RUN useradd -ms /bin/bash default
 WORKDIR $HOME
 USER default
+COPY .icewm $HOME/.icewm/
 
 ENTRYPOINT ["/docker/startup.sh"]

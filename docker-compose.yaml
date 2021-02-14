@@ -125,10 +125,12 @@ services:
       match:
 
   grsim:
-    image: robocupssl/grsim:latest
+    image: robocupssl/grsim:2.4.0
     restart: always
     mem_limit: 50m
     cpus: 1
+    environment:
+      VNC_PASSWORD:
     ports:
       - 10300/udp
       - 10301/udp
@@ -153,6 +155,20 @@ services:
     networks:
       - simulator
       - match
+
+  autoref-tigers:
+    image: tigersmannheim/auto-referee-vnc:0.9.3
+    command: ["vnc", "-a"]
+    restart: always
+    mem_limit: 2g
+    cpus: 1
+    environment:
+      VNC_PASSWORD:
+    ports:
+      - 5900/tcp
+    networks:
+      - match
+      - guacamole
 
   tigers:
     image: robocupssl/ubuntu-vnc-java:latest

@@ -129,8 +129,6 @@ services:
     restart: always
     mem_limit: 50m
     cpus: 1
-    environment:
-      VNC_PASSWORD:
     ports:
       - 10300/udp
       - 10301/udp
@@ -170,7 +168,7 @@ services:
       - match
       - guacamole
 
-  tigers:
+  team-tigers:
     image: robocupssl/ubuntu-vnc-java:latest
     restart: always
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -178,14 +176,14 @@ services:
     environment:
       SSH_PUBLIC_KEY:
     volumes:
-      - tigers-data:/home/default:rw
+      - team-tigers-data:/home/default:rw
     ports:
       - 5901/tcp
     networks:
       - match
       - guacamole
 
-  erforce:
+  team-erforce:
     image: robocupssl/ubuntu-vnc:latest
     restart: always
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -193,7 +191,7 @@ services:
     environment:
       SSH_PUBLIC_KEY:
     volumes:
-      - erforce-data:/home/default:rw
+      - team-erforce-data:/home/default:rw
     ports:
       - 5901/tcp
     networks:
@@ -205,8 +203,8 @@ volumes:
   guacd-record:
   postgres-data:
   game-controller-config:
-  tigers-data:
-  erforce-data:
+  team-tigers-data:
+  team-erforce-data:
 
 networks:
   expose:

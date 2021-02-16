@@ -1,0 +1,16 @@
+{
+  "username": "",
+  "password": "",
+  "attributes": {
+    "disabled": "",
+    "expired": "",
+    "access-window-start": "",
+    "access-window-end": "",
+    "valid-from": "",
+    "valid-until": "",
+    "timezone": null,
+    "guac-full-name": "",
+    "guac-organization": "",
+    "guac-organizational-role": ""
+  }
+}

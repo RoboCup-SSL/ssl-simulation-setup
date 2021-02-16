@@ -27,34 +27,42 @@ TODOs:
 
 ## Startup
 
-Run single local field and expose caddy on ports 80 and 443 on the host:
+First, you need to initialize some secrets with:
+```shell
+./config/init_secrets.sh
+```
+This will generate passwords and an SSH key and put them at the right place.
+
+Now, spin up the default field `field-a`:
 ```shell
 docker-compose up
 ```
 
-Spin up a new virtual field called `field-a`
+You can also spin up more fields with:
 ```shell
-# Set field name. Defaults to field-a
-export COMPOSE_PROJECT_NAME=field-a
+# Set field name. Defaults to field-b
+export COMPOSE_PROJECT_NAME=field-b
 # Start all containers
 docker-compose up
 ```
 By default, a virtual field environment does not expose any ports to avoid conflicts when spinning up multiple fields.
-To get access to the virtual field, start a reverse proxy:
+To get access to the virtual field, start the reverse proxy:
 ```shell
 cd caddy
 docker-compose up
 ```
 Afterwards, visit https://localhost in your browser.
 
-## Default credentials
-In the default setup, you can log in with these credentials:
- * Guacamole
-   * Admin: `guacadmin:guacadmin`
-   * Team: `tigers:tigers` or `erforce:erforce`
- * Game Controller: `referee:referee`
+Guacamole needs to be initialized on first use:
+```shell
+cd config
+./update_guacamole.py
+```
+The script will generate new passwords for all teams and the admin user under [config/passwords](./config/passwords).
 
-Note: In Guacamole, you can press Ctrl + Shift + Alt to open a menu where you can copy files from/to the VNC session.
+## Usage notes
+
+- In Guacamole, you can press Ctrl + Shift + Alt to open a menu where you can copy files from/to the VNC session.
 
 ## Shutdown and cleanup
 

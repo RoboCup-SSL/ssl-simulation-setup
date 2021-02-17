@@ -7,7 +7,7 @@ services:
     mem_limit: 50m
     cpus: 0.5
     environment:
-      - CADDY_ROOT_DOMAIN=localhost
+      - CADDY_ROOT_DOMAIN
     ports:
       - "80:80/tcp"
       - "443:443/tcp"

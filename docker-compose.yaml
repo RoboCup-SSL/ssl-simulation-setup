@@ -175,6 +175,7 @@ services:
     cpus: "${TEAM_LIMIT_CPU}"
     environment:
       SSH_PUBLIC_KEY:
+      VNC_PW:
     volumes:
       - team-tigers-data:/home/default:rw
     ports:
@@ -190,6 +191,7 @@ services:
     cpus: "${TEAM_LIMIT_CPU}"
     environment:
       SSH_PUBLIC_KEY:
+      VNC_PW:
     volumes:
       - team-erforce-data:/home/default:rw
     ports:

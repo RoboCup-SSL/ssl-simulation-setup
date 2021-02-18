@@ -12,11 +12,11 @@ root_domain = "localhost"
 
 guacamoleAdminUser = "guacadmin"
 guacamoleAdminStandardPassword = "guacadmin"
-vncPassword = "vncpassword"
+env_file = "../.env"
 ssh_key_location = "./vnc_rsa"
 teams_file = "./teams"
 passwords_file = "./passwords"
-verify_certificate = False
+verify_certificate = True
 
 
 def load_guacamole_private_ssh_key():
@@ -27,6 +27,17 @@ def load_guacamole_private_ssh_key():
 def load_teams():
     with open(teams_file) as file:
         return [line.replace("\n", "") for line in file.readlines()]
+
+
+def load_env():
+    with open("../.env", "r") as file:
+        lines = file.readlines()
+        env_map = {}
+        for line in lines:
+            parts = line.replace("\n", "").split("=", 1)
+            if len(parts) == 2:
+                env_map[parts[0]] = parts[1]
+        return env_map
 
 
 def generate_password():
@@ -61,6 +72,8 @@ def default_connection():
 def init_field(field_id):
     client = GuacamoleClient(f'https://vnc.{field_id}.{root_domain}/guacamole')
     client.verify_certificate = verify_certificate
+    if root_domain == "localhost":
+        client.verify_certificate = False
     passwords = load_passwords()
     if guacamoleAdminUser not in passwords:
         client.retrieve_auth_token(guacamoleAdminUser, guacamoleAdminStandardPassword)
@@ -77,10 +90,13 @@ def init_field(field_id):
     viewer_group = "viewers"
     client.upsert_user_group(viewer_group)
 
+    env_map = load_env()
+    vnc_password = env_map["VNC_PW"]
+
     auto_ref_conn = default_connection()
     auto_ref_conn["name"] = "autoref-tigers"
     auto_ref_conn["parameters"]["port"] = "5900"
-    auto_ref_conn["parameters"]["password"] = vncPassword
+    auto_ref_conn["parameters"]["password"] = vnc_password
     auto_ref_conn["parameters"]["hostname"] = "autoref-tigers"
     client.upsert_connection(auto_ref_conn)
     auto_ref_conn["name"] = "autoref-tigers-view"
@@ -98,7 +114,7 @@ def init_field(field_id):
         write_conn = default_connection()
         write_conn["name"] = f"team-{team}"
         write_conn["parameters"]["port"] = "5901"
-        write_conn["parameters"]["password"] = vncPassword
+        write_conn["parameters"]["password"] = vnc_password
         write_conn["parameters"]["hostname"] = f"team-{team}"
         write_conn["parameters"]["enable-sftp"] = "true"
         write_conn["parameters"]["sftp-private-key"] = ssh_private_key
@@ -106,7 +122,7 @@ def init_field(field_id):
         view_conn = default_connection()
         view_conn["name"] = f"team-{team}-view"
         view_conn["parameters"]["port"] = "5901"
-        view_conn["parameters"]["password"] = vncPassword
+        view_conn["parameters"]["password"] = vnc_password
         view_conn["parameters"]["hostname"] = f"team-{team}"
         view_conn["parameters"]["read-only"] = "true"
         view_connection_id = client.upsert_connection(view_conn)

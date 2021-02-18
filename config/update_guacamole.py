@@ -103,9 +103,13 @@ def init_field(field_id):
         write_conn["parameters"]["enable-sftp"] = "true"
         write_conn["parameters"]["sftp-private-key"] = ssh_private_key
         write_connection_id = client.upsert_connection(write_conn)
-        write_conn["name"] = f"team-{team}-view"
-        write_conn["parameters"]["read-only"] = "true"
-        view_connection_id = client.upsert_connection(write_conn)
+        view_conn = default_connection()
+        view_conn["name"] = f"team-{team}-view"
+        view_conn["parameters"]["port"] = "5901"
+        view_conn["parameters"]["password"] = vncPassword
+        view_conn["parameters"]["hostname"] = f"team-{team}"
+        view_conn["parameters"]["read-only"] = "true"
+        view_connection_id = client.upsert_connection(view_conn)
 
         client.patch_user_permissions(team, write_connection_id)
         client.assign_member_to_user_group(team, viewer_group)

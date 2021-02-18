@@ -1,4 +1,4 @@
-http://{env.CADDY_ROOT_DOMAIN}, https://{env.CADDY_ROOT_DOMAIN} {
+{env.CADDY_ROOT_DOMAIN} {
     root * /srv
     file_server
 }

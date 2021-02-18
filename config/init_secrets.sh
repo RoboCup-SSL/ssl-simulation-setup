@@ -29,11 +29,11 @@ if grep "POSTGRES_PASSWORD=ChooseYourOwnPasswordHere1234" "${ENV_FILE}" > /dev/n
 fi
 
 # Change default VNC password
-if grep "VNC_PASSWORD=vncpassword" "${ENV_FILE}" > /dev/null; then
+if grep "VNC_PW=vncpassword" "${ENV_FILE}" > /dev/null; then
   set +e
-  VNC_PASSWORD="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
+  VNC_PW="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
   set -e
-  grep -v "VNC_PASSWORD=" "${ENV_FILE}" > "${ENV_FILE}.new"
-  echo "VNC_PASSWORD=${VNC_PASSWORD}" >> "${ENV_FILE}.new"
+  grep -v "VNC_PW=" "${ENV_FILE}" > "${ENV_FILE}.new"
+  echo "VNC_PW=${VNC_PW}" >> "${ENV_FILE}.new"
   mv "${ENV_FILE}.new" "${ENV_FILE}"
 fi

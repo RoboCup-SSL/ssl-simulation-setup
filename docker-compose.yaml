@@ -157,7 +157,7 @@ services:
       - match
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:0.9.3
+    image: tigersmannheim/auto-referee-vnc:0.9.4
     command: ["vnc", "-a"]
     restart: always
     mem_limit: 2g

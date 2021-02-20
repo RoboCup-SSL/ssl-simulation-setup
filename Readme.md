@@ -29,7 +29,7 @@ TODOs:
 
 Before you start anything, you need to initialize some secrets with:
 ```shell
-./config/docker/init_secrets.sh
+./config/docker/init.sh
 ```
 This will generate passwords and an SSH key and put them at the right places.
 

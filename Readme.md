@@ -16,14 +16,10 @@ This repo is still in draft mode and subject to change.
  * The home folder is backed by a docker volume. Teams can check out their code here, and it will survive container restarts and rebuilds
  * The field can be viewed with the ssl-vision-client in the browser
  * The ssl-status-board shows the game state in the browser
+ * The ssl-game-controller is protected with user/password. Only the refereeing team and the admin is activated per match.
 
 TODOs:
- * How to make ssl-game-controller available?
-   * Password protection via nginx?
-   * Browser in VNC session and authentication via Guacamole?
- * Integrate a simulator and check if multicast, etc works
  * Check if team integration and custom team image is practical
- * Clarify integration with ssl.robocup.org or similar
 
 ## Startup
 
@@ -96,6 +92,15 @@ Stop and remove all containers, networks and volumes (`-v`) for the reverse prox
 cd caddy
 docker-compose down -v
 ```
+
+## Run on AWS
+The full setup can be deployed to AWS with terraform:
+```shell
+cd terraform
+terraform init
+terraform apply
+```
+Make sure you to make yourself familiar with AWS and terraform, before doing this.
 
 ## Update
 

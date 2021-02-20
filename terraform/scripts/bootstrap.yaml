@@ -1,0 +1,33 @@
+#cloud-config
+# Add groups to the system
+# Adds the ubuntu group with members 'root' and 'sys'
+# and the empty group hashicorp.
+groups:
+  - ubuntu: [root,sys]
+  - docker
+  - hashicorp
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - default
+  - name: terraform
+    gecos: terraform
+    shell: /bin/bash
+    primary_group: hashicorp
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin, docker
+    lock_passwd: false
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJqakzRMOnYMYVAjai8JOTdg3stzshNLgHNEgzk9aOMg geforce@thinkpad-p1
+
+packages:
+  - git
+  - vim
+  - python3
+  - docker
+  - docker-compose
+
+runcmd:
+  - [ su, terraform ]
+  - [ git, clone, "https://github.com/RoboCup-SSL/ssl-simulation-setup.git", "/home/terraform/ssl-simulation-setup" ]
+  - [ chown, "-R", "terraform:", "/home/terraform/ssl-simulation-setup" ]

@@ -182,7 +182,7 @@ services:
       - team-tigers-data:/home/default:rw
     ports:
       - 5901/tcp
-      - 22/tcp
+      - 2222/tcp
     networks:
       - match
       - guacamole
@@ -199,7 +199,7 @@ services:
       - team-erforce-data:/home/default:rw
     ports:
       - 5901/tcp
-      - 22/tcp
+      - 2222/tcp
     networks:
       - match
       - guacamole

@@ -17,7 +17,7 @@
     "recording-include-keys": "",
     "create-recording-path": "",
     "enable-sftp": "",
-    "sftp-port": "",
+    "sftp-port": "2222",
     "sftp-server-alive-interval": "",
     "enable-audio": "",
     "audio-servername": "",

@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 ENV DISPLAY=:1 \
     VNC_PORT=5901 \
-    SSH_PORT=22
+    SSH_PORT=2222
 EXPOSE $VNC_PORT $NO_VNC_PORT $SSH_PORT
 
 ENV HOME=/home/default \

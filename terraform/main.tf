@@ -99,11 +99,15 @@ resource "aws_security_group" "sg_22_80" {
 
 data "template_file" "user_data" {
   template = file("scripts/bootstrap.yaml")
+
+  vars = {
+    root_domain = var.root_domain
+  }
 }
 
 resource "aws_instance" "web" {
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = "t2.medium"
+  instance_type               = var.instance_type
   subnet_id                   = aws_subnet.subnet_public.id
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
   associate_public_ip_address = false

@@ -27,7 +27,26 @@ packages:
   - docker
   - docker-compose
 
+write_files:
+  - content: |
+      #!/bin/bash
+      set -e
+      cd
+      git clone https://github.com/RoboCup-SSL/ssl-simulation-setup.git
+      cd ssl-simulation-setup
+      echo -n "${root_domain}" > config/root_domain
+      ./config/docker/init.sh
+      docker-compose up -d
+      sleep 10s
+      (cd caddy && docker-compose up -d)
+      sleep 30s
+      ./config/guacamole/update_guacamole.py
+      ./config/caddy/update_caddy_passwords.sh
+      ./config/caddy/generate_caddyfile.py
+      ./config/caddy/update_caddy_config.sh
+    path: /init.sh
+    owner: terraform:hashicorp
+    permissions: '0755'
+
 runcmd:
-  - [ su, terraform ]
-  - [ git, clone, "https://github.com/RoboCup-SSL/ssl-simulation-setup.git", "/home/terraform/ssl-simulation-setup" ]
-  - [ chown, "-R", "terraform:", "/home/terraform/ssl-simulation-setup" ]
+  - [ "su", "--login", "terraform", "-c", "/init.sh" ]

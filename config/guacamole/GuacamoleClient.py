@@ -1,6 +1,9 @@
 import string
 import json
 import requests
+import os
+
+script_dir = os.path.dirname(__file__)
 
 
 class GuacamoleException(Exception):
@@ -55,7 +58,7 @@ class GuacamoleClient:
             raise GuacamoleException("Could not update user password: " + response.text)
 
     def create_user(self, username, password):
-        with open("user.json", "r") as file:
+        with open(script_dir + "/user.json", "r") as file:
             body = json.load(file)
             body["username"] = username
             body["password"] = password

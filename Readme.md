@@ -27,11 +27,11 @@ TODOs:
 
 ## Startup
 
-First, you need to initialize some secrets with:
+Before you start anything, you need to initialize some secrets with:
 ```shell
-./config/init_secrets.sh
+./config/docker/init_secrets.sh
 ```
-This will generate passwords and an SSH key and put them at the right place.
+This will generate passwords and an SSH key and put them at the right places.
 
 Now, spin up the default field `field-a`:
 ```shell
@@ -51,14 +51,33 @@ To get access to the virtual field, start the reverse proxy:
 cd caddy
 docker-compose up
 ```
+If you have more than one field, you need to add them to [caddy/docker-compose.yaml](caddy/docker-compose.yaml) manually.
+If you are running locally, you might want to add the local CA from caddy to your system with:
+```shell
+# Note: Have a look at this script for more details
+./caddy/install_local_CA.sh
+```
 Afterwards, visit https://localhost in your browser.
 
-Guacamole needs to be initialized on first use:
+To get access, you need to do some more configuration.
+First, update the files `fields`, `teams` and `root_domain` in [./config](config) to your needs.
+
+Guacamole (the VNC frontend) needs to be initialized on first use:
 ```shell
-cd config
-./update_guacamole.py
+./config/guacamole/update_guacamole.py
 ```
 The script will generate new passwords for all teams and the admin user under [config/passwords](./config/passwords).
+
+Caddy is configured to serve only the default field `field-a` by default. To add additional fields and to add
+custom credentials for the game-controller, run:
+```shell
+# Convert the team passwords to caddy-compatible password hashes
+./config/caddy/update_caddy_passwords.sh
+# Generate the new Caddyfile
+./config/caddy/generate_caddyfile.py
+# Load the new Caddyfile into the running Caddy server
+./config/caddy/update_caddy_config.sh
+```
 
 ## Usage notes
 

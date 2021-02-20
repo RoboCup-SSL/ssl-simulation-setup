@@ -1,0 +1,37 @@
+{env.CADDY_ROOT_DOMAIN} {
+    root * /srv
+    file_server
+}
+{% for field in fields %}
+{{ field.name }}.{env.CADDY_ROOT_DOMAIN} {
+    root * /srv
+    file_server {
+        index field.html
+    }
+}
+
+vnc.{{ field.name }}.{env.CADDY_ROOT_DOMAIN} {
+    reverse_proxy /guacamole/* guacamole.{{ field.name }}:8080
+    @notGuacamole {
+        not path /guacamole/*
+    }
+    redir @notGuacamole /guacamole/ permanent
+}
+
+gc.{{ field.name }}.{env.CADDY_ROOT_DOMAIN} {
+    basicauth {
+        {% for user in field.gc_users %}
+        {{ user.name }} {{ user.hash }}
+        {% endfor %}
+    }
+    reverse_proxy ssl-game-controller-private.{{ field.name }}:8081
+}
+
+vision.{{ field.name }}.{env.CADDY_ROOT_DOMAIN} {
+    reverse_proxy ssl-vision-client.{{ field.name }}:8082
+}
+
+status-board.{{ field.name }}.{env.CADDY_ROOT_DOMAIN} {
+    reverse_proxy ssl-status-board.{{ field.name }}:8082
+}
+{% endfor %}

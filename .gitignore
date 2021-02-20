@@ -1,1 +1,5 @@
 .idea
+/caddy/local-ca.crt
+/config/vnc_rsa*
+/config/passwords
+/config/caddy_passwords

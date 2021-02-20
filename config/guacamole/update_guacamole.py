@@ -7,16 +7,27 @@ import string
 
 from GuacamoleClient import GuacamoleClient
 
-fields = ["field-a"]
-root_domain = "localhost"
-
 guacamoleAdminUser = "guacadmin"
 guacamoleAdminStandardPassword = "guacadmin"
-env_file = "../.env"
-ssh_key_location = "./vnc_rsa"
-teams_file = "./teams"
-passwords_file = "./passwords"
+script_dir = os.path.dirname(__file__)
+config_dir = script_dir + "/.."
+env_file = config_dir + "/../.env"
+ssh_key_location = config_dir + "/vnc_rsa"
+teams_file = config_dir + "/teams"
+passwords_file = config_dir + "/passwords"
+root_domain_file = config_dir + "/root_domain"
+fields_file = config_dir + "/fields"
 verify_certificate = True
+
+
+def load_root_domain():
+    with open(root_domain_file) as file:
+        return file.read().strip()
+
+
+def load_fields():
+    with open(fields_file) as file:
+        return [line.replace("\n", "") for line in file.readlines()]
 
 
 def load_guacamole_private_ssh_key():
@@ -30,7 +41,7 @@ def load_teams():
 
 
 def load_env():
-    with open("../.env", "r") as file:
+    with open(env_file, "r") as file:
         lines = file.readlines()
         env_map = {}
         for line in lines:
@@ -65,15 +76,19 @@ def save_passwords(passwords):
 
 
 def default_connection():
-    with open("vnc-connection.json", "r") as file:
+    with open(script_dir + "/vnc-connection.json", "r") as file:
         return json.load(file)
 
 
 def init_field(field_id):
+    root_domain = load_root_domain()
+
     client = GuacamoleClient(f'https://vnc.{field_id}.{root_domain}/guacamole')
     client.verify_certificate = verify_certificate
     if root_domain == "localhost":
         client.verify_certificate = False
+    teams = load_teams()
+    ssh_private_key = load_guacamole_private_ssh_key()
     passwords = load_passwords()
     if guacamoleAdminUser not in passwords:
         client.retrieve_auth_token(guacamoleAdminUser, guacamoleAdminStandardPassword)
@@ -103,8 +118,6 @@ def init_field(field_id):
     auto_ref_conn["parameters"]["read-only"] = "true"
     client.upsert_connection(auto_ref_conn)
 
-    teams = load_teams()
-    ssh_private_key = load_guacamole_private_ssh_key()
     for team in teams:
         if client.get_user(team) is None:
             password = generate_password()
@@ -132,5 +145,6 @@ def init_field(field_id):
         client.assign_connection_to_user_group(view_connection_id, viewer_group)
 
 
+fields = load_fields()
 for field in fields:
     init_field(field)

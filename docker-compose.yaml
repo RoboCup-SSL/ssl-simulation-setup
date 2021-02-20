@@ -81,7 +81,7 @@ services:
           - "ssl-status-board.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.6.1
+    image: robocupssl/ssl-game-controller:2.6.2
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -105,7 +105,7 @@ services:
           - "ssl-game-controller-private.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-public:
-    image: g3force/proxy-tcp-udp-mc:0.1.0
+    image: g3force/proxy-tcp-udp-mc:0.1.1
     command:
       - "tcp,:10007,ssl-game-controller-private:10007,AutoRef"
       - "tcp,:10008,ssl-game-controller-private:10008,Team"
@@ -129,6 +129,8 @@ services:
     restart: always
     mem_limit: 50m
     cpus: 1
+    environment:
+      - VNC_PASSWORD=${VNC_PW}
     ports:
       - 10300/udp
       - 10301/udp
@@ -137,7 +139,7 @@ services:
       - simulator
 
   simulator:
-    image: g3force/proxy-tcp-udp-mc:0.1.0
+    image: g3force/proxy-tcp-udp-mc:0.1.1
     command:
       - "udp,:10300,grsim:10300,Control"
       - "udp,:10301,grsim:10301,Blue"
@@ -161,7 +163,7 @@ services:
     mem_limit: 2g
     cpus: 1
     environment:
-      VNC_PASSWORD:
+      - VNC_PASSWORD=${VNC_PW}
     ports:
       - 5900/tcp
     networks:

@@ -68,7 +68,7 @@ services:
           - "ssl-vision-client.${COMPOSE_PROJECT_NAME}"
 
   ssl-status-board:
-    image: robocupssl/ssl-status-board:2.1.0
+    image: robocupssl/ssl-status-board:2.1.1
     restart: always
     mem_limit: 50m
     cpus: 0.5

@@ -8,7 +8,7 @@ apt-get install -y \
   supervisor icewm xterm xfonts-base xauth xinit \
   tigervnc-standalone-server \
   openssh-server \
-  vim wget git
+  vim wget git unzip
 
 apt-get purge -y pm-utils xscreensaver*
 apt-get autoremove -y

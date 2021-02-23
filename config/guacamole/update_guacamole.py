@@ -118,6 +118,15 @@ def init_field(field_id):
     auto_ref_conn["parameters"]["read-only"] = "true"
     client.upsert_connection(auto_ref_conn)
 
+    maintainer_conn = default_connection()
+    maintainer_conn["name"] = "maintainer"
+    maintainer_conn["parameters"]["port"] = "5901"
+    maintainer_conn["parameters"]["password"] = vnc_password
+    maintainer_conn["parameters"]["hostname"] = "maintainer"
+    maintainer_conn["parameters"]["enable-sftp"] = "true"
+    maintainer_conn["parameters"]["sftp-private-key"] = ssh_private_key
+    client.upsert_connection(maintainer_conn)
+
     for team in teams:
         if client.get_user(team) is None:
             password = generate_password()

@@ -47,3 +47,8 @@ grep -v "CADDY_ROOT_DOMAIN=" "${CADDY_ENV_FILE}" >"${CADDY_ENV_FILE}.new"
 set -e
 echo -n "CADDY_ROOT_DOMAIN=${CADDY_ROOT_DOMAIN}" >>"${CADDY_ENV_FILE}.new"
 mv "${CADDY_ENV_FILE}.new" "${CADDY_ENV_FILE}"
+
+while IFS="" read -r team || [ -n "$team" ]
+do
+  docker volume create "team-${team}-data"
+done <"${CONFIG_DIR}/teams"

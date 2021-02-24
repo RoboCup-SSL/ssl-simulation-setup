@@ -156,6 +156,23 @@ services:
       - simulator
       - match
 
+  maintainer:
+    image: robocupssl/ubuntu-vnc-go:latest
+    restart: always
+    mem_limit: 500m
+    cpus: 1
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - maintainer-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
   autoref-tigers:
     image: tigersmannheim/auto-referee-vnc:0.9.4
     command: ["vnc", "-a"]
@@ -204,23 +221,6 @@ services:
       - match
       - guacamole
 
-  maintainer:
-    image: robocupssl/ubuntu-vnc-go:latest
-    restart: always
-    mem_limit: 500m
-    cpus: 1
-    environment:
-      SSH_PUBLIC_KEY:
-      VNC_PW:
-    volumes:
-      - maintainer-data:/home/default:rw
-    ports:
-      - 5901/tcp
-      - 2222/tcp
-    networks:
-      - match
-      - guacamole
-
 volumes:
   guacd-drive:
   guacd-record:
@@ -228,7 +228,9 @@ volumes:
   game-controller-config:
   maintainer-data:
   team-tigers-data:
+    external: true
   team-erforce-data:
+    external: true
 
 networks:
   expose:

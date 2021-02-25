@@ -50,8 +50,8 @@ services:
     networks:
       guacamole:
       expose:
-          aliases:
-            - "guacamole.${COMPOSE_PROJECT_NAME}"
+        aliases:
+          - "guacamole.${COMPOSE_PROJECT_NAME}"
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.2.0
@@ -141,10 +141,11 @@ services:
   simulator:
     image: g3force/proxy-tcp-udp-mc:0.1.1
     command:
-      - "udp,:10300,grsim:10300,Control"
       - "udp,:10301,grsim:10301,Blue"
       - "udp,:10302,grsim:10302,Yellow"
       - "mc,224.5.23.2:10020,224.5.23.2:10006,Vision"
+      - "mc,224.5.23.1:10003,224.5.23.1:11003,Referee"
+      - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
     restart: always
     mem_limit: 50m
     cpus: 0.1
@@ -155,6 +156,23 @@ services:
     networks:
       - simulator
       - match
+
+  ssl-simulation-controller:
+    image: robocupssl/ssl-simulation-controller:0.1.0
+    command:
+      - "-refereeAddress"
+      - "224.5.23.1:11003"
+      - "-visionAddress"
+      - "224.5.23.2:10020"
+      - "-trackerAddress"
+      - "224.5.23.2:11010"
+      - "-simControlPort"
+      - "10300"
+    restart: always
+    mem_limit: 50m
+    cpus: 0.1
+    networks:
+      - simulator
 
   maintainer:
     image: robocupssl/ubuntu-vnc-go:latest
@@ -175,7 +193,7 @@ services:
 
   autoref-tigers:
     image: tigersmannheim/auto-referee-vnc:0.9.4
-    command: ["vnc", "-a"]
+    command: [ "vnc", "-a" ]
     restart: always
     mem_limit: 2g
     cpus: 1

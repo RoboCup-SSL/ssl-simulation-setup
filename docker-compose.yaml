@@ -192,7 +192,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:0.9.4
+    image: tigersmannheim/auto-referee-vnc:0.9.5
     command: [ "vnc", "-a" ]
     restart: always
     mem_limit: 2g

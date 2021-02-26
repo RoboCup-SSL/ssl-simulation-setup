@@ -175,7 +175,7 @@ services:
       - simulator
 
   maintainer:
-    image: robocupssl/ubuntu-vnc-go:latest
+    image: robocupssl/ubuntu-vnc-go:0.2.0
     restart: always
     mem_limit: 500m
     cpus: 1
@@ -206,7 +206,7 @@ services:
       - guacamole
 
   team-tigers:
-    image: robocupssl/ubuntu-vnc-java:0.1.0
+    image: robocupssl/ubuntu-vnc-java:0.2.0
     restart: always
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -223,7 +223,7 @@ services:
       - guacamole
 
   team-erforce:
-    image: robocupssl/ubuntu-vnc:0.1.0
+    image: robocupssl/ubuntu-vnc:0.2.0
     restart: always
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"

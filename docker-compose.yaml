@@ -3,7 +3,7 @@ version: '2.4'
 services:
   guacd:
     image: guacamole/guacd:1.3.0
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 1
     volumes:
@@ -15,7 +15,7 @@ services:
 
   postgres:
     image: postgres:13
-    restart: always
+    restart: unless-stopped
     mem_limit: 200m
     cpus: 0.5
     environment:
@@ -33,7 +33,7 @@ services:
 
   guacamole:
     image: guacamole/guacamole:1.3.0
-    restart: always
+    restart: unless-stopped
     mem_limit: 1g
     cpus: 1
     environment:
@@ -56,7 +56,7 @@ services:
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.2.0
     command: [ "-visionAddress", "224.5.23.2:10006" ]
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.5
     ports:
@@ -69,7 +69,7 @@ services:
 
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.1.1
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.5
     ports:
@@ -91,7 +91,7 @@ services:
       - "224.5.23.1:11003"
       - "-address"
       - ":8081"
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.5
     volumes:
@@ -113,7 +113,7 @@ services:
       - "mc,224.5.23.1:11003,224.5.23.1:10003,Referee"
       - "mc,224.5.23.2:10006,224.5.23.2:11006,Vision"
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.1
     ports:
@@ -126,7 +126,7 @@ services:
 
   grsim:
     image: robocupssl/grsim:2.4.0
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 1
     environment:
@@ -146,7 +146,7 @@ services:
       - "mc,224.5.23.2:10020,224.5.23.2:10006,Vision"
       - "mc,224.5.23.1:10003,224.5.23.1:11003,Referee"
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.1
     ports:
@@ -168,7 +168,7 @@ services:
       - "224.5.23.2:11010"
       - "-simControlPort"
       - "10300"
-    restart: always
+    restart: unless-stopped
     mem_limit: 50m
     cpus: 0.1
     networks:
@@ -176,7 +176,7 @@ services:
 
   maintainer:
     image: robocupssl/ubuntu-vnc-go:0.2.0
-    restart: always
+    restart: unless-stopped
     mem_limit: 500m
     cpus: 1
     environment:
@@ -194,7 +194,7 @@ services:
   autoref-tigers:
     image: tigersmannheim/auto-referee-vnc:0.9.5
     command: [ "vnc", "-a" ]
-    restart: always
+    restart: unless-stopped
     mem_limit: 2g
     cpus: 1
     environment:
@@ -207,7 +207,7 @@ services:
 
   team-tigers:
     image: robocupssl/ubuntu-vnc-java:0.2.0
-    restart: always
+    restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
     environment:
@@ -224,7 +224,7 @@ services:
 
   team-erforce:
     image: robocupssl/ubuntu-vnc:0.2.0
-    restart: always
+    restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
     environment:

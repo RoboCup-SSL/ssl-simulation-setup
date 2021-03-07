@@ -18,8 +18,28 @@ This repo is still in draft mode and subject to change.
  * The ssl-status-board shows the game state in the browser
  * The ssl-game-controller is protected with user/password. Only the refereeing team and the admin is activated per match.
 
-TODOs:
- * Check if team integration and custom team image is practical
+## Requirements
+
+Following software is required, which should be available on all major operating systems:
+
+* Docker and Docker-Compose
+* Bash
+* Python 3
+
+## Preparations for teams
+
+As a team, you need to make sure that your software can run on Ubuntu 20.04 and without root permissions.
+If you require a GPU or have other specific requirements, ask the technical committee if it will be possible.
+
+Each team has its own docker container including a simple desktop environment.
+If you need additional libraries to run and/or build your software, create a custom docker image based on [src/ubuntu-vnc](src/ubuntu-vnc). Use [src/ubuntu-vnc-java](src/ubuntu-vnc-java) as a template. Then submit a pull-request with the new docker image.
+It is possible to copy files into the container, so you can also build your software locally and only copy the binaries over.
+
+Your container will have a volume mounted to the home folder. The volume will be used for all fields, while there will be individual containers per field. You do not need to worry about changing any network addresses or ports, they will always be the same.
+You should be able to handle multiple network interfaces, though.
+
+To integrate your own container, add a new service to [docker-compose.yaml](docker-compose.yaml). Take the tigers or erforce service as a template.
+Also, add your team name to [config/teams](./config/teams). It should be all-lower-case without any special characters.
 
 ## Startup
 

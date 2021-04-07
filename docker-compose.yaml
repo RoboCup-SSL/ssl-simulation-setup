@@ -227,7 +227,7 @@ services:
       - guacamole
 
   team-erforce:
-    image: robocupssl/ubuntu-vnc:0.2.0
+    image: roboticserlangen/robocup:latest
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"

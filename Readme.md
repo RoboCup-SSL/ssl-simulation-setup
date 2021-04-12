@@ -17,6 +17,7 @@ This repo is still in draft mode and subject to change.
  * The field can be viewed with the ssl-vision-client in the browser
  * The ssl-status-board shows the game state in the browser
  * The ssl-game-controller is protected with user/password. Only the refereeing team and the admin is activated per match.
+ * The [ssl-simulation-controller](https://github.com/RoboCup-SSL/ssl-simulation-controller) manages manual ball and robot placement and simulation configuration
 
 ## Requirements
 
@@ -85,7 +86,7 @@ Guacamole (the VNC frontend) needs to be initialized on first use:
 The script will generate new passwords for all teams and the admin user under [config/passwords](./config/passwords).
 
 Caddy is configured to serve only the default field `field-a` by default. To add additional fields and to add
-custom credentials for the game-controller, run:
+custom credentials for the game-controller (default is referee:referee), run:
 ```shell
 # Convert the team passwords to caddy-compatible password hashes
 ./config/caddy/update_caddy_passwords.sh

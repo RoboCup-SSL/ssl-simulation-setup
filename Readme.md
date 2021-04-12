@@ -1,16 +1,12 @@
 # Simulation Setup for virtual Small Size League Tournament
 
----
-**Note**
-
-This repo is still in draft mode and subject to change.
-
----
+This repository contains the configuration for a virtual Small Size League tournament
+with multiple fields and all components that are required.
 
 ## Setup idea
- * A single powerful root server is used
+ * A single powerful root server is used per field or for multiple fields
  * Teams only access the server via Browser with Guacamole
- * A team has access to its own VNC session
+ * A team has access to its own VNC session (a virtual desktop)
  * All teams have view access to all VNC sessions, to make sure nobody is touching their system during a match
  * A team may submit a custom docker image with additional dependencies
  * The home folder is backed by a docker volume. Teams can check out their code here, and it will survive container restarts and rebuilds

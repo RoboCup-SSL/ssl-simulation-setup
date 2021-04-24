@@ -54,7 +54,7 @@ services:
           - "guacamole.${COMPOSE_PROJECT_NAME}"
 
   ssl-vision-client:
-    image: robocupssl/ssl-vision-client:1.2.0
+    image: robocupssl/ssl-vision-client:1.5.0
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
     mem_limit: 50m
@@ -81,7 +81,7 @@ services:
           - "ssl-status-board.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.6.2
+    image: robocupssl/ssl-game-controller:2.6.3
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -124,13 +124,25 @@ services:
       referee:
       match:
 
-  grsim:
-    image: robocupssl/grsim:2.4.0
+#  grsim:
+#    image: robocupssl/grsim:2.4.0
+#    restart: unless-stopped
+#    mem_limit: 50m
+#    cpus: 1
+#    environment:
+#      - VNC_PASSWORD=${VNC_PW}
+#    ports:
+#      - 10300/udp
+#      - 10301/udp
+#      - 10302/udp
+#    networks:
+#      - simulator
+
+  erforce-sim:
+    image: roboticserlangen/simulatorcli:commit-25d461a81d6f
     restart: unless-stopped
     mem_limit: 50m
     cpus: 1
-    environment:
-      - VNC_PASSWORD=${VNC_PW}
     ports:
       - 10300/udp
       - 10301/udp
@@ -141,8 +153,8 @@ services:
   simulator:
     image: g3force/proxy-tcp-udp-mc:0.1.1
     command:
-      - "udp,:10301,grsim:10301,Blue"
-      - "udp,:10302,grsim:10302,Yellow"
+      - "udp,:10301,erforce-sim:10301,Blue"
+      - "udp,:10302,erforce-sim:10302,Yellow"
       - "mc,224.5.23.2:10020,224.5.23.2:10006,Vision"
       - "mc,224.5.23.1:10003,224.5.23.1:11003,Referee"
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
@@ -158,7 +170,7 @@ services:
       - match
 
   ssl-simulation-controller:
-    image: robocupssl/ssl-simulation-controller:0.2.0
+    image: robocupssl/ssl-simulation-controller:0.5.2
     command:
       - "-refereeAddress"
       - "224.5.23.1:11003"
@@ -168,9 +180,13 @@ services:
       - "224.5.23.2:11010"
       - "-simControlPort"
       - "10300"
+      - "-robotSpecConfig"
+      - "/config/robot-specs.yaml"
     restart: unless-stopped
     mem_limit: 50m
     cpus: 0.1
+    volumes:
+      - ./config/ssl-simulation-controller:/config:ro
     networks:
       - simulator
 
@@ -193,7 +209,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:0.9.6
+    image: tigersmannheim/auto-referee-vnc:0.9.7
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc", "-a" ]
     # Run without UI in active mode

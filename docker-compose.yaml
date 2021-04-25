@@ -54,7 +54,7 @@ services:
           - "guacamole.${COMPOSE_PROJECT_NAME}"
 
   ssl-vision-client:
-    image: robocupssl/ssl-vision-client:1.5.0
+    image: robocupssl/ssl-vision-client:1.5.1
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
     mem_limit: 50m

@@ -108,15 +108,25 @@ def init_field(field_id):
     env_map = load_env()
     vnc_password = env_map["VNC_PW"]
 
-    auto_ref_conn = default_connection()
-    auto_ref_conn["name"] = "autoref-tigers"
-    auto_ref_conn["parameters"]["port"] = "5900"
-    auto_ref_conn["parameters"]["password"] = vnc_password
-    auto_ref_conn["parameters"]["hostname"] = "autoref-tigers"
-    client.upsert_connection(auto_ref_conn)
-    auto_ref_conn["name"] = "autoref-tigers-view"
-    auto_ref_conn["parameters"]["read-only"] = "true"
-    client.upsert_connection(auto_ref_conn)
+    auto_ref_conn_tigers = default_connection()
+    auto_ref_conn_tigers["name"] = "autoref-tigers"
+    auto_ref_conn_tigers["parameters"]["port"] = "5900"
+    auto_ref_conn_tigers["parameters"]["password"] = vnc_password
+    auto_ref_conn_tigers["parameters"]["hostname"] = "autoref-tigers"
+    client.upsert_connection(auto_ref_conn_tigers)
+    auto_ref_conn_tigers["name"] = "autoref-tigers-view"
+    auto_ref_conn_tigers["parameters"]["read-only"] = "true"
+    client.upsert_connection(auto_ref_conn_tigers)
+
+    auto_ref_conn_erforce = default_connection()
+    auto_ref_conn_erforce["name"] = "autoref-erforce"
+    auto_ref_conn_erforce["parameters"]["port"] = "5900"
+    auto_ref_conn_erforce["parameters"]["password"] = vnc_password
+    auto_ref_conn_erforce["parameters"]["hostname"] = "autoref-erforce"
+    client.upsert_connection(auto_ref_conn_erforce)
+    auto_ref_conn_erforce["name"] = "autoref-erforce-view"
+    auto_ref_conn_erforce["parameters"]["read-only"] = "true"
+    client.upsert_connection(auto_ref_conn_erforce)
 
     maintainer_conn = default_connection()
     maintainer_conn["name"] = "maintainer"

@@ -225,6 +225,19 @@ services:
       - match
       - guacamole
 
+  autoref-erforce:
+    image: roboticserlangen/autoref:commit-aca1f707602e
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: 1
+    environment:
+      - VNC_PASSWORD=${VNC_PW}
+    ports:
+      - 5900/tcp
+    networks:
+      - match
+      - guacamole
+
   team-tigers:
     image: robocupssl/ubuntu-vnc-java:0.2.0
     restart: unless-stopped

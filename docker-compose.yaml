@@ -177,6 +177,16 @@ services:
     networks:
       - simulator
 
+  ssl-auto-recorder:
+    image: robocupssl/ssl-auto-recorder:0.1.0
+    restart: unless-stopped
+    mem_limit: 50m
+    cpus: 0.1
+    volumes:
+      - ssl-auto-recorder-data:/data:rw
+    networks:
+      - match
+
   # Maintainer is a container for the maintainers of the event for testing purposes
   maintainer:
     image: robocupssl/ubuntu-vnc-go:0.2.0
@@ -188,6 +198,7 @@ services:
       VNC_PW:
     volumes:
       - maintainer-data:/home/default:rw
+      - ssl-auto-recorder-data:/ssl-auto-recorder-data:rw
     ports:
       - 5901/tcp
       - 2222/tcp
@@ -265,6 +276,7 @@ volumes:
   postgres-data:
   game-controller-config:
   maintainer-data:
+  ssl-auto-recorder-data:
   team-tigers-data:
     external: true
   team-erforce-data:

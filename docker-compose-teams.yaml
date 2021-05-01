@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  team-tigers:
+    image: robocupssl/ubuntu-vnc-java:0.2.0
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-tigers-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
+  team-erforce:
+    image: roboticserlangen/robocup:latest
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-erforce-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
+volumes:
+  team-tigers-data:
+    external: true
+  team-erforce-data:
+    external: true
+
+networks:
+  match:
+  guacamole:

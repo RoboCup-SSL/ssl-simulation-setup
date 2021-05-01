@@ -46,18 +46,16 @@ Before you start anything, you need to initialize some secrets with:
 ```
 This will generate passwords and an SSH key and put them at the right places.
 
-Now, spin up the default field `field-a`:
+Now, you can spin up the field:
 ```shell
+# Optional: Set field name. Defaults to field-a
+export COMPOSE_PROJECT_NAME=field-a
+# Start all SSL containers
 docker-compose up
+# Start team containers (individually or all together)
+docker-compose -f docker-compose-teams.yaml up [team-container]
 ```
 
-You can also spin up more fields with:
-```shell
-# Set field name. Defaults to field-b
-export COMPOSE_PROJECT_NAME=field-b
-# Start all containers
-docker-compose up
-```
 By default, a virtual field environment does not expose any ports to avoid conflicts when spinning up multiple fields.
 To get access to the virtual field, start the reverse proxy:
 ```shell

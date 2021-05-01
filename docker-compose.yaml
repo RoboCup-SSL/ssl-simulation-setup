@@ -125,7 +125,7 @@ services:
       match:
 
   simulator-private:
-    image: roboticserlangen/simulatorcli:commit-25d461a81d6f
+    image: roboticserlangen/simulatorcli:commit-497a8d279e4e
 #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
     mem_limit: 100m

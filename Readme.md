@@ -95,6 +95,7 @@ custom credentials for the game-controller (default is referee:referee), run:
 - In Guacamole, you can press Ctrl + Shift + Alt to open a menu where you can copy files from/to the VNC session.
 - You can also drag&drop files into the browser tab to copy files into the home folder
 - The home folder is backed by a volume, so all files in the home folder will survive container rebuilds
+- To paste text into the terminal, use Shift+Insert
 
 ## Shutdown and cleanup
 

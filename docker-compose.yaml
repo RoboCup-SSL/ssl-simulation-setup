@@ -81,7 +81,7 @@ services:
           - "ssl-status-board.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.6.3
+    image: robocupssl/ssl-game-controller:2.7.2
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"

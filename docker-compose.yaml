@@ -81,7 +81,7 @@ services:
           - "ssl-status-board.${COMPOSE_PROJECT_NAME}"
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.7.2
+    image: robocupssl/ssl-game-controller:2.7.3
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -95,7 +95,7 @@ services:
     mem_limit: 100m
     cpus: 1
     volumes:
-      - game-controller-config:/config:rw
+      - ssl-game-controller-config:/config:rw
     ports:
       - 8081/tcp
     networks:
@@ -157,7 +157,7 @@ services:
       - match
 
   ssl-simulation-controller:
-    image: robocupssl/ssl-simulation-controller:0.7.0
+    image: robocupssl/ssl-simulation-controller:0.7.1
     command:
       - "-refereeAddress"
       - "224.5.23.1:11003"
@@ -178,7 +178,7 @@ services:
       - simulator
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:0.2.0
+    image: robocupssl/ssl-auto-recorder:0.2.1
     restart: unless-stopped
     mem_limit: 50m
     cpus: 0.1
@@ -199,6 +199,7 @@ services:
     volumes:
       - maintainer-data:/home/default:rw
       - ssl-auto-recorder-data:/ssl-auto-recorder-data:rw
+      - ssl-game-controller-config:/ssl-game-controller-config:rw
     ports:
       - 5901/tcp
       - 2222/tcp
@@ -240,7 +241,7 @@ volumes:
   guacd-drive:
   guacd-record:
   postgres-data:
-  game-controller-config:
+  ssl-game-controller-config:
   maintainer-data:
   ssl-auto-recorder-data:
 

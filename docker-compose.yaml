@@ -125,9 +125,13 @@ services:
       match:
 
   simulator-private:
-    image: roboticserlangen/simulatorcli:commit-497a8d279e4e
+    image: roboticserlangen/simulatorcli:commit-3d9589a2f591
 #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
+    environment:
+      # ER-Force options
+      GEOMETRY: "2020"
+      REALISM: "RC2021"
     mem_limit: 100m
     cpus: 1
     ports:

@@ -55,11 +55,8 @@ services:
       
 volumes:
   team-tigers-data:
-    external: true
   team-erforce-data:
-    external: true
   team-ubcthunderbots-data:
-    external: true
 
 networks:
   match:

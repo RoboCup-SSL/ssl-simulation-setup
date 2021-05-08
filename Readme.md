@@ -35,7 +35,7 @@ It is possible to copy files into the container, so you can also build your soft
 Your container will have a volume mounted to the home folder. The volume will be used for all fields, while there will be individual containers per field. You do not need to worry about changing any network addresses or ports, they will always be the same.
 You should be able to handle multiple network interfaces, though.
 
-To integrate your own container, add a new service to [docker-compose.yaml](docker-compose.yaml). Take the tigers or erforce service as a template.
+To integrate your own container, add a new service to [docker-compose-teams.yaml](docker-compose-teams.yaml). Take the tigers or erforce service as a template.
 Also, add your team name to [config/teams](./config/teams). It should be all-lower-case without any special characters.
 
 ## Startup

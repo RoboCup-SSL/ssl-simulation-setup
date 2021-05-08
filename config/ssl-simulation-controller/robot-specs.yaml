@@ -1,22 +1,32 @@
+# Some notes on how to measure:
+#
+# - team name: Should match exactly the one configured in the ssl-game-controller
+# - height: Floor to flat surface, excluding small screws.
+# - limits: You should specify a reasonable max possible limit, not the limit that you use for normal driving.
+# - shoot_radius: The distance from robot center to the outer ball edge, when the ball is as close as possible to the robot.
+# - dribbler_width: The width of the dribbling bar.
 robot-specs:
   "TIGERs Mannheim":
     radius: 0.09
-    height: 0.15
-    mass: 2
+    # Height up to the flat surface, excluding screws.
+    height: 0.143
+    mass: 2.7
     max_linear_kick_speed: 8
     max_chip_kick_speed: 8
-    center_to_dribbler: 0.073
+    center_to_dribbler: 0.078
     limits:
-      acc_speedup_absolute_max: 3
-      acc_speedup_angular_max: 50
+      # Default acc is 3 m/s²
+      acc_speedup_absolute_max: 3.5
+      acc_speedup_angular_max: 55
+      # Default brake acc is same as speedup, but the limit is used for emergency brake.
       acc_brake_absolute_max: 6
-      acc_brake_angular_max: 50
-      vel_absolute_max: 3
-      vel_angular_max: 20
+      acc_brake_angular_max: 55
+      # Default max speed is 3 m/s, but the fast-move mode allows 4.5 m/s by only driving the bot fwd or bwd. 
+      vel_absolute_max: 4.5
+      vel_angular_max: 25
     custom_erforce:
-      shoot_radius: 0.067
-      dribbler_height: 0.04
-      dribbler_width: 0.07
+      shoot_radius: 0.0715
+      dribbler_width: 0.065
   "ER-Force":
     radius: 0.09
     height: 0.15
@@ -33,5 +43,4 @@ robot-specs:
       vel_angular_max: 20
     custom_erforce:
       shoot_radius: 0.067
-      dribbler_height: 0.04
       dribbler_width: 0.07

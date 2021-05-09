@@ -36,9 +36,27 @@ services:
       - match
       - guacamole
 
+  team-ubcthunderbots:
+    image: ubcthunderbots/tbots-software-env:0.0.1
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-ubcthunderbots-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+      
 volumes:
   team-tigers-data:
   team-erforce-data:
+  team-ubcthunderbots-data:
 
 networks:
   match:

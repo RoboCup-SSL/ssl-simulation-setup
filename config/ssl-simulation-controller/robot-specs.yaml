@@ -3,7 +3,7 @@
 # - team name: Should match exactly the one configured in the ssl-game-controller
 # - height: Floor to flat surface, excluding small screws.
 # - limits: You should specify a reasonable max possible limit, not the limit that you use for normal driving.
-# - shoot_radius: The distance from robot center to the outer ball edge, when the ball is as close as possible to the robot.
+# - shoot_radius: The distance [m] from the robot center to the ball, when the ball is as close as possible to the robot.
 # - dribbler_width: The width of the dribbling bar.
 robot-specs:
   "TIGERs Mannheim":

@@ -5,6 +5,8 @@
 # - limits: You should specify a reasonable max possible limit, not the limit that you use for normal driving.
 # - shoot_radius: The distance [m] from the robot center to the ball, when the ball is as close as possible to the robot.
 # - dribbler_width: The width of the dribbling bar.
+# - More details on how the custom parameters for the ER-Force sim are applied can be found at: 
+#     https://github.com/RoboCup-SSL/ssl-simulation-protocol/tree/master/proto/erforce 
 robot-specs:
   "TIGERs Mannheim":
     radius: 0.09

@@ -69,12 +69,30 @@ services:
     networks:
       - match
       - guacamole
-      
+
+  team-robofei:
+    image: bollos00/robofeissl-ssl-strategy:latest
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-robofei-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
 volumes:
   team-tigers-data:
   team-erforce-data:
   team-ubcthunderbots-data:
   team-robocin-data:
+  team-robofei-data:
 
 networks:
   match:

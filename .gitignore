@@ -3,3 +3,5 @@
 /config/vnc_rsa*
 /config/passwords
 /config/caddy_passwords
+*.env
+**/__pycache___

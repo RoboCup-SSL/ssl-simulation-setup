@@ -16,11 +16,24 @@
             text-align: center;
         }
 
+        .title-div {
+            height: 3em;
+            text-align: center;
+            align-content: baseline;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #174c7b;
+            opacity: 0.9;
+            margin: 1em;
+            border-radius: 0.5em;
+        }
+
         a {
             color: ghostwhite;
         }
 
-        .fields {
+        .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
@@ -29,14 +42,14 @@
             align-content: center;
         }
 
-        .field {
+        .grid-element {
             height: 5em;
             text-align: center;
             align-content: baseline;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: darkgrey;
+            background-color: #174c7b;
             opacity: 0.9;
             margin: 3em;
             border-radius: 0.5em;
@@ -44,20 +57,25 @@
     </style>
 </head>
 <body>
-<h1>Small Size League Virtual Tournament Field</h1>
+<div class="title-div">
+    <h1>SSL Virtual Tournament Field</h1>
+</div>
 
-<div class="fields">
-    <a class="link" href="@protocol@://vnc.@parent-domain@">
-        <div class="field">VNC Server</div>
-    </a>
-    <a class="link" href="@protocol@://gc.@parent-domain@">
-        <div class="field">Game Controller</div>
+<div class="grid">
+    <a class="link" href="/spectator.html">
+        <div class="grid-element">Spectator View</div>
     </a>
     <a class="link" href="@protocol@://vision.@parent-domain@">
-        <div class="field">Vision Viewer</div>
+        <div class="grid-element">Vision Viewer</div>
     </a>
     <a class="link" href="@protocol@://status-board.@parent-domain@">
-        <div class="field">Status Board</div>
+        <div class="grid-element">Status Board</div>
+    </a>
+    <a class="link" href="@protocol@://gc.@parent-domain@">
+        <div class="grid-element">Game Controller (Referee only)</div>
+    </a>
+    <a class="link" href="@protocol@://vnc.@parent-domain@">
+        <div class="grid-element">VNC Server (Teams only)</div>
     </a>
 </div>
 </body>

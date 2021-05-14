@@ -16,11 +16,24 @@
             text-align: center;
         }
 
+        .title-div {
+            height: 3em;
+            text-align: center;
+            align-content: baseline;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #29823b;
+            opacity: 0.9;
+            margin: 1em;
+            border-radius: 0.5em;
+        }
+
         a {
             color: ghostwhite;
         }
 
-        .fields {
+        .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
@@ -29,14 +42,14 @@
             align-content: center;
         }
 
-        .field {
+        .grid-element {
             height: 5em;
             text-align: center;
             align-content: baseline;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: darkgrey;
+            background-color: #29823b;
             opacity: 0.9;
             margin: 3em;
             border-radius: 0.5em;
@@ -44,20 +57,22 @@
     </style>
 </head>
 <body>
-<h1>Small Size League Virtual Tournament</h1>
+<div class="title-div">
+    <h1>Small Size League Virtual Tournament</h1>
+</div>
 
-<div class="fields">
+<div class="grid">
     <a class="field-link" href="@protocol@://field-a.@parent-domain@">
-        <div class="field">Field A</div>
+        <div class="grid-element">Field A</div>
     </a>
     <a class="field-link" href="@protocol@://field-b.@parent-domain@">
-        <div class="field">Field B</div>
+        <div class="grid-element">Field B</div>
     </a>
     <a class="field-link" href="@protocol@://field-c.@parent-domain@">
-        <div class="field">Field C</div>
+        <div class="grid-element">Field C</div>
     </a>
     <a class="field-link" href="@protocol@://field-d.@parent-domain@">
-        <div class="field">Field D</div>
+        <div class="grid-element">Field D</div>
     </a>
 </div>
 </body>

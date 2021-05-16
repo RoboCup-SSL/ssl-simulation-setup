@@ -1,5 +1,7 @@
 FROM robocupssl/ubuntu-vnc:latest
 
 USER root
-RUN apt-get update && apt-get install -y openjdk-14-jdk && apt-get clean -y
+RUN apt-get update && apt-get install -y openjdk-16-jdk && apt-get clean -y
+COPY installGraalVM.sh /temp/installGraalVM.sh
+RUN bash /temp/installGraalVM.sh
 USER default

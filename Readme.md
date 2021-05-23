@@ -4,7 +4,7 @@ This repository contains the configuration for a virtual Small Size League tourn
 with multiple fields and all components that are required.
 
 ## Setup idea
- * A single powerful root server is used per field or for multiple fields
+ * A single powerful root server is used per field
  * Teams only access the server via Browser with Guacamole
  * A team has access to its own VNC session (a virtual desktop)
  * All teams have view access to all VNC sessions, to make sure nobody is touching their system during a match
@@ -38,7 +38,10 @@ You should be able to handle multiple network interfaces, though.
 To integrate your own container, add a new service to [docker-compose-teams.yaml](docker-compose-teams.yaml). Take the tigers or erforce service as a template.
 Also, add your team name to [config/teams](./config/teams). It should be all-lower-case without any special characters.
 
-## Startup
+
+## Setup
+
+If you want to use a remote server, change the root domain and field name first in [./config/root_domain](./config/root_domain) and [./config/field_name](./config/field_name). Else, the defaults are fine.
 
 Before you start anything, you need to initialize some secrets with:
 ```shell
@@ -46,72 +49,69 @@ Before you start anything, you need to initialize some secrets with:
 ```
 This will generate passwords and an SSH key and put them at the right places.
 
+Next, generate the initial Caddyfile for the webserver:
+```shell
+./config/caddy/generate_caddyfile.py
+```
+
 Now, you can spin up the field:
 ```shell
-# Optional: Set field name. Defaults to field-a
-export COMPOSE_PROJECT_NAME=field-a
-# Start all SSL containers
+# Start all containers and keep showing the log in the foreground (ctrl+c will stop everything again)
 docker-compose up
+# Or alternatively run all containers in the background:
+docker-compose up -d
+```
+
+Next, setup Guacamole and caddy:
+```shell
+# Sets up the running Guacamole (VNC) server. Will also generate team passwords.
+./config/guacamole/update_guacamole.py
+# Convert all passwords into a caddy format for the game-controller
+./config/caddy/update_caddy_passwords.sh
+# Regenerate the Caddyfile with the newly created passwords
+./config/caddy/generate_caddyfile.py
+# Reload the running caddy webserver
+./config/caddy/update_caddy_config.sh
+```
+
+Finally, spin up the team containers that you need:
+```shell
 # Start team containers (individually or all together)
 docker-compose -f docker-compose-teams.yaml up [team-container]
 ```
 
-By default, a virtual field environment does not expose any ports to avoid conflicts when spinning up multiple fields.
-To get access to the virtual field, start the reverse proxy:
-```shell
-cd caddy
-docker-compose up
-```
-If you have more than one field, you need to add them to [caddy/docker-compose.yaml](caddy/docker-compose.yaml) manually.
+
+# Access
+
+You can access the field through your browser now.
+The URL is https://localhost or whatever you chose as the root domain.
+
 If you are running locally, you might want to add the local CA from caddy to your system with:
 ```shell
 # Note: Have a look at this script for more details
 ./caddy/install_local_CA.sh
 ```
-Afterwards, visit https://localhost in your browser.
 
-To get access, you need to do some more configuration.
-First, update the files `fields`, `teams` and `root_domain` in [./config](config) to your needs.
+All credentials were generated to [./config/passwords](./config/passwords).
 
-Guacamole (the VNC frontend) needs to be initialized on first use:
-```shell
-./config/guacamole/update_guacamole.py
-```
-The script will generate new passwords for all teams and the admin user under [config/passwords](./config/passwords).
 
-Caddy is configured to serve only the default field `field-a` by default. To add additional fields and to add
-custom credentials for the game-controller (default is referee:referee), run:
-```shell
-# Convert the team passwords to caddy-compatible password hashes
-./config/caddy/update_caddy_passwords.sh
-# Generate the new Caddyfile
-./config/caddy/generate_caddyfile.py
-# Load the new Caddyfile into the running Caddy server
-./config/caddy/update_caddy_config.sh
-```
-
-## Usage notes
+# Usage notes
 
 - In Guacamole, you can press Ctrl + Shift + Alt to open a menu where you can copy files from/to the VNC session.
 - You can also drag&drop files into the browser tab to copy files into the home folder
 - The home folder is backed by a volume, so all files in the home folder will survive container rebuilds
 - To paste text into the terminal, use Shift+Insert
 
-## Shutdown and cleanup
+
+# Shutdown and cleanup
 
 Stop and remove all containers, networks and volumes (`-v`) for a specific field:
 ```shell
-export COMPOSE_PROJECT_NAME=field-a
 docker-compose down -v
 ```
 
-Stop and remove all containers, networks and volumes (`-v`) for the reverse proxy:
-```shell
-cd caddy
-docker-compose down -v
-```
 
-## Run on AWS
+# Run on AWS
 The full setup can be deployed to AWS with terraform:
 ```shell
 cd terraform
@@ -120,7 +120,7 @@ terraform apply
 ```
 Make sure to make yourself familiar with AWS and terraform, before doing this.
 
-## Update
+# Update
 
 The database setup scripts are pre-generated already, but if
 the guacamole version changes, the script might need to be generated again with:

@@ -1,6 +1,22 @@
 version: '2.4'
 
 services:
+  caddy:
+    image: caddy:2.2.1-alpine
+    restart: unless-stopped
+    mem_limit: 50m
+    cpus: 0.5
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - ./caddy/init/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/init/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - expose
+
   guacd:
     image: guacamole/guacd:1.3.0
     restart: unless-stopped
@@ -48,10 +64,8 @@ services:
     ports:
       - 8080/tcp # Guacamole is on :8080/guacamole, not /.
     networks:
-      guacamole:
-      expose:
-        aliases:
-          - "guacamole.${COMPOSE_PROJECT_NAME}"
+      - guacamole
+      - expose
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.5.1
@@ -62,10 +76,8 @@ services:
     ports:
       - 8082/tcp
     networks:
-      match:
-      expose:
-        aliases:
-          - "ssl-vision-client.${COMPOSE_PROJECT_NAME}"
+      - match
+      - expose
 
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.1.1
@@ -75,10 +87,8 @@ services:
     ports:
       - 8082/tcp
     networks:
-      match:
-      expose:
-        aliases:
-          - "ssl-status-board.${COMPOSE_PROJECT_NAME}"
+      - match
+      - expose
 
   ssl-game-controller-private:
     image: robocupssl/ssl-game-controller:2.7.3
@@ -99,10 +109,8 @@ services:
     ports:
       - 8081/tcp
     networks:
-      referee:
-      expose:
-        aliases:
-          - "ssl-game-controller-private.${COMPOSE_PROJECT_NAME}"
+      - referee
+      - expose
 
   ssl-game-controller-public:
     image: g3force/proxy-tcp-udp-mc:0.1.1
@@ -121,8 +129,8 @@ services:
       - 10008/tcp
       - 10011/tcp
     networks:
-      referee:
-      match:
+      - referee
+      - match
 
   simulator-private:
     image: roboticserlangen/simulatorcli:commit-3d9589a2f591
@@ -242,6 +250,8 @@ services:
       - guacamole
 
 volumes:
+  caddy_data:
+  caddy_config:
   guacd-drive:
   guacd-record:
   postgres-data:

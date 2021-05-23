@@ -25,9 +25,9 @@ def load_root_domain():
         return file.read().strip()
 
 
-def load_fields():
-    with open(fields_file) as file:
-        return [line.replace("\n", "") for line in file.readlines()]
+def load_field_name():
+    with open(config_dir + "/field_name", "r") as file:
+        return file.read().strip()
 
 
 def load_guacamole_private_ssh_key():
@@ -80,10 +80,10 @@ def default_connection():
         return json.load(file)
 
 
-def init_field(field_id):
+def init_field(field_name):
     root_domain = load_root_domain()
 
-    client = GuacamoleClient(f'https://vnc.{field_id}.{root_domain}/guacamole')
+    client = GuacamoleClient(f'https://vnc.{field_name}.{root_domain}/guacamole')
     client.verify_certificate = verify_certificate
     if root_domain == "localhost":
         client.verify_certificate = False
@@ -164,6 +164,5 @@ def init_field(field_id):
         client.assign_connection_to_user_group(view_connection_id, viewer_group)
 
 
-fields = load_fields()
-for field in fields:
-    init_field(field)
+field_name = load_field_name()
+init_field(field_name)

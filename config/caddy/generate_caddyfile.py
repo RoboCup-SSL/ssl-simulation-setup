@@ -15,9 +15,14 @@ def load_caddyfile_template():
         return file.read()
 
 
-def load_fields():
-    with open(config_dir + "/fields", "r") as file:
-        return [line.replace("\n", "") for line in file.readlines()]
+def load_field_name():
+    with open(config_dir + "/field_name", "r") as file:
+        return file.read().strip()
+
+
+def load_root_domain():
+    with open(config_dir + "/root_domain", "r") as file:
+        return file.read().strip()
 
 
 def load_password_hashes():
@@ -33,20 +38,19 @@ def load_password_hashes():
         return password_map
 
 
-field_names = load_fields()
+field_name = load_field_name()
+root_domain = load_root_domain()
 password_hashes = load_password_hashes()
 
-fields = []
-for field_name in field_names:
-    gc_users = []
-    for username, password_hash in password_hashes.items():
-        gc_users.append({"name": username, "hash": password_hash})
-    fields.append({
-        "name": field_name,
-        "gc_users": gc_users
-    })
+gc_users = []
+for username, password_hash in password_hashes.items():
+    gc_users.append({"name": username, "hash": password_hash})
 
 template = Template(load_caddyfile_template())
-caddyfile = template.render(fields=fields)
+caddyfile = template.render({
+    "root_domain": root_domain,
+    "field_name": field_name,
+    "gc_users": gc_users
+})
 with open(caddy_file, "w") as file:
     file.write(caddyfile)

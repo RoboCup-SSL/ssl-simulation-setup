@@ -19,9 +19,11 @@ set -euo pipefail
 set -x
 
 # Update system
-sudo apt update
-sudo apt dist-upgrade -y
-sudo apt install -y git vim python3 python3-requests python3-jinja2 htop
+if ! dpkg -l | grep git; then
+  sudo apt update
+  sudo apt dist-upgrade -y
+  sudo apt install -y git vim python3 python3-requests python3-jinja2 htop
+fi
 
 # Install docker based on https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 if ! dpkg -l | grep docker-ce; then
@@ -44,8 +46,15 @@ if ! dpkg -l | grep docker-ce; then
   echo "alias dc=docker-compose" >>~/.bashrc
 fi
 
-git clone https://github.com/RoboCup-SSL/ssl-simulation-setup.git
-cd ssl-simulation-setup || exit 1
+repo_dir="$HOME/ssl-simulation-setup"
+if [[ ! -d "${repo_dir}" ]]; then
+  git clone https://github.com/RoboCup-SSL/ssl-simulation-setup.git "${repo_dir}"
+  cd "${repo_dir}" || exit 1
+else
+  cd "${repo_dir}" || exit 1
+  git pull
+fi
+
 echo -n "${ROOT_DOMAIN}" >config/root_domain
 echo -n "${FIELD_NAME}" >config/field_name
 ./config/docker/init.sh

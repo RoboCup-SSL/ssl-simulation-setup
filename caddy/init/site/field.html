@@ -65,17 +65,20 @@
     <a class="link" href="/spectator.html">
         <div class="grid-element">Spectator View</div>
     </a>
-    <a class="link" href="@protocol@://vision.@parent-domain@">
+    <a class="link" href="@protocol@://vision.@current-domain@">
         <div class="grid-element">Vision Viewer</div>
     </a>
-    <a class="link" href="@protocol@://status-board.@parent-domain@">
+    <a class="link" href="@protocol@://status-board.@current-domain@">
         <div class="grid-element">Status Board</div>
     </a>
-    <a class="link" href="@protocol@://gc.@parent-domain@">
+    <a class="link" href="@protocol@://gc.@current-domain@">
         <div class="grid-element">Game Controller (Referee only)</div>
     </a>
-    <a class="link" href="@protocol@://vnc.@parent-domain@">
+    <a class="link" href="@protocol@://vnc.@current-domain@">
         <div class="grid-element">VNC Server (Teams only)</div>
+    </a>
+    <a class="link" href="@protocol@://@parent-domain@">
+        <div class="grid-element">Other fields</div>
     </a>
 </div>
 </body>
@@ -84,7 +87,8 @@
     for (const link of document.getElementsByClassName("link")) {
         if (link.hasAttribute('href')) {
             const href = link.getAttribute('href')
-                .replace('@parent-domain@', window.location.hostname)
+                .replace('@parent-domain@', window.location.hostname.split('.').slice(1).join('.'))
+                .replace('@current-domain@', window.location.hostname)
                 .replace('@protocol@:', window.location.protocol);
             link.setAttribute('href', href);
         }

@@ -5,3 +5,4 @@
 /config/passwords
 /config/caddy_passwords
 **/__pycache__
+.env

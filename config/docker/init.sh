@@ -13,28 +13,23 @@ if [[ ! -f "${SSH_KEY_LOCATION}" ]]; then
   ssh-keygen -t rsa -m PEM -f "${SSH_KEY_LOCATION}" -N "" -C guacamole-vnc
 fi
 
+if [[ -f "${ENV_FILE}" ]]; then
+  echo ".env file was already generated"
+  exit 0
+fi
+
 # Add public key to environment
 SSH_PUBLIC_KEY=$(cat "${SSH_KEY_LOCATION}.pub")
-grep -v "SSH_PUBLIC_KEY=" "${ENV_FILE}" >"${ENV_FILE}.new"
-echo "SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}" >>"${ENV_FILE}.new"
-mv "${ENV_FILE}.new" "${ENV_FILE}"
 
-# Change default postgres password
-if grep "POSTGRES_PASSWORD=ChooseYourOwnPasswordHere1234" "${ENV_FILE}" >/dev/null; then
-  set +e
-  POSTGRES_PASSWORD="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
-  set -e
-  grep -v "POSTGRES_PASSWORD=" "${ENV_FILE}" >"${ENV_FILE}.new"
-  echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >>"${ENV_FILE}.new"
-  mv "${ENV_FILE}.new" "${ENV_FILE}"
-fi
+set +e
+POSTGRES_PASSWORD="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
+VNC_PW="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
+set -e
 
-# Change default VNC password
-if grep "VNC_PW=vncpassword" "${ENV_FILE}" >/dev/null; then
-  set +e
-  VNC_PW="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
-  set -e
-  grep -v "VNC_PW=" "${ENV_FILE}" >"${ENV_FILE}.new"
-  echo "VNC_PW=${VNC_PW}" >>"${ENV_FILE}.new"
-  mv "${ENV_FILE}.new" "${ENV_FILE}"
-fi
+cat <<EOF >"${ENV_FILE}"
+TEAM_LIMIT_MEM=32g
+TEAM_LIMIT_CPU=16
+SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+VNC_PW=${VNC_PW}
+EOF

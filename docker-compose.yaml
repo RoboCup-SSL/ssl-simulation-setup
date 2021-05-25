@@ -220,7 +220,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:0.10.0
+    image: tigersmannheim/auto-referee-vnc:0.11.0
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc", "-a" ]
     # Run without UI in active mode

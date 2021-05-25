@@ -133,7 +133,7 @@ services:
       - match
 
   simulator-private:
-    image: roboticserlangen/simulatorcli:commit-3d9589a2f591
+    image: roboticserlangen/simulatorcli:commit-3831eb81e803
 #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
     environment:

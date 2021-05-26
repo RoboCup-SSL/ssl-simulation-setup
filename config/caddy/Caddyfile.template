@@ -9,6 +9,13 @@
     }
 }
 
+portainer.{{ field_name }}.{{ root_domain }} {
+    reverse_proxy portainer:9000
+}
+grafana.{{ field_name }}.{{ root_domain }} {
+    reverse_proxy grafana:3000
+}
+
 vnc.{{ field_name }}.{{ root_domain }} {
     reverse_proxy /guacamole/* guacamole:8080
     @notGuacamole {

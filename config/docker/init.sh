@@ -24,7 +24,11 @@ SSH_PUBLIC_KEY=$(cat "${SSH_KEY_LOCATION}.pub")
 set +e
 POSTGRES_PASSWORD="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
 VNC_PW="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
+GRAFANA_PW="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
+PORTAINER_PW="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32)"
 set -e
+
+echo -n "${PORTAINER_PW}" > "${CONFIG_DIR}/portainer_password"
 
 cat <<EOF >"${ENV_FILE}"
 TEAM_LIMIT_MEM=2g
@@ -32,4 +36,5 @@ TEAM_LIMIT_CPU=2
 SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}
 POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 VNC_PW=${VNC_PW}
+GRAFANA_PW=${GRAFANA_PW}
 EOF

@@ -4,5 +4,6 @@
 /config/vnc_rsa*
 /config/passwords
 /config/caddy_passwords
+/config/portainer_password
 **/__pycache__
 .env

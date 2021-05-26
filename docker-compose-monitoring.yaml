@@ -1,0 +1,95 @@
+version: '2.4'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.5.0-alpine
+    command:
+      - "--admin-password-file"
+      - "/tmp/portainer_password"
+    restart: unless-stopped
+    mem_limit: 100m
+    cpus: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/portainer_password:/tmp/portainer_password
+      - portainer_data:/data
+    networks:
+      - expose
+
+  prometheus:
+    image: prom/prometheus:v2.27.1
+    restart: unless-stopped
+    mem_limit: 100m
+    cpus: 1
+    #    ports:
+    #      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    depends_on:
+      - cadvisor
+      - node-exporter
+    networks:
+      - expose
+
+  node-exporter:
+    image: prom/node-exporter:v1.1.2
+    restart: unless-stopped
+    mem_limit: 100m
+    cpus: 1
+    #    ports:
+    #      - 9100:9100
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    networks:
+      - expose
+
+  cadvisor:
+    image: google/cadvisor:v0.33.0
+    restart: unless-stopped
+    mem_limit: 100m
+    cpus: 1
+    #    ports:
+    #      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - expose
+
+  grafana:
+    image: grafana/grafana:7.5.7
+    restart: unless-stopped
+    mem_limit: 100m
+    cpus: 1
+    #    ports:
+    #      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana/provisioning/:/etc/grafana/provisioning/
+    environment:
+      - "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PW}"
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - expose
+
+volumes:
+  portainer_data:
+  grafana_data:
+  prometheus_data:
+
+networks:
+  expose:

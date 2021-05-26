@@ -92,12 +92,30 @@ services:
       - match
       - guacamole
 
+  team-roboteamtwente:
+    image: yuhanuncitgez/robocup:latest
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-roboteamtwente-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
 volumes:
   team-tigers-data:
   team-erforce-data:
   team-ubcthunderbots-data:
   team-robocin-data:
   team-robofei-data:
+  team-roboteamtwente-data:
 
 networks:
   match:

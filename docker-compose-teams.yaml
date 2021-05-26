@@ -3,6 +3,7 @@ version: '2.4'
 services:
   team-tigers:
     image: robocupssl/ubuntu-vnc-java:0.3.0
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -21,6 +22,7 @@ services:
 
   team-erforce:
     image: roboticserlangen/robocup:latest
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -38,6 +40,7 @@ services:
 
   team-ubcthunderbots:
     image: ubcthunderbots/tbots-software-env:0.0.1
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -55,6 +58,7 @@ services:
 
   team-robocin:
     image: lhcs/robocin-coach:latest
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -72,6 +76,7 @@ services:
 
   team-robofei:
     image: bollos00/robofeissl-ssl-strategy:latest
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"

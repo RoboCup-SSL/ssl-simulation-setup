@@ -5,8 +5,8 @@
 # - limits: You should specify a reasonable max possible limit, not the limit that you use for normal driving.
 # - shoot_radius: The distance [m] from the robot center to the ball, when the ball is as close as possible to the robot.
 # - dribbler_width: The width of the dribbling bar.
-# - More details on how the custom parameters for the ER-Force sim are applied can be found at: 
-#     https://github.com/RoboCup-SSL/ssl-simulation-protocol/tree/master/proto/erforce 
+# - More details on how the custom parameters for the ER-Force sim are applied can be found at:
+#     https://github.com/RoboCup-SSL/ssl-simulation-protocol/tree/master/proto/erforce
 robot-specs:
   "TIGERs Mannheim":
     radius: 0.09
@@ -23,7 +23,7 @@ robot-specs:
       # Default brake acc is same as speedup, but the limit is used for emergency brake.
       acc_brake_absolute_max: 6
       acc_brake_angular_max: 55
-      # Default max speed is 3 m/s, but the fast-move mode allows 4.5 m/s by only driving the bot fwd or bwd. 
+      # Default max speed is 3 m/s, but the fast-move mode allows 4.5 m/s by only driving the bot fwd or bwd.
       vel_absolute_max: 4.5
       vel_angular_max: 25
     custom_erforce:
@@ -63,4 +63,20 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.0669
       dribbler_width: 0.072
-
+  "RoboFEI":
+    radius: 0.09
+    height: 0.15
+    mass: 2.5
+    max_linear_kick_speed: 8
+    max_chip_kick_speed: 8
+    center_to_dribbler: 0.075
+    limits:
+      acc_speedup_absolute_max: 4.9
+      acc_speedup_angular_max: 55
+      acc_brake_absolute_max: 6
+      acc_brake_angular_max: 55
+      vel_absolute_max: 3.5
+      vel_angular_max: 25
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.07

@@ -146,6 +146,24 @@ services:
       - match
       - guacamole
 
+  team-robodragons:
+    image: sslrobodragons/robodragons-system:ubuntu20.04-robocup2021-simulation
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-robodragons-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
 volumes:
   team-tigers-data:
   team-erforce-data:
@@ -155,6 +173,7 @@ volumes:
   team-roboteamtwente-data:
   team-uroborus-data:
   team-roboime-data:
+  team-robodragons-data:
 
 networks:
   match:

@@ -94,6 +94,7 @@ services:
 
   team-roboteamtwente:
     image: yuhanuncitgez/robocup:latest
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"

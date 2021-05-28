@@ -112,6 +112,7 @@ services:
 
   team-uroborus:
     image: uroborus/larcmacs:latest
+    user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"

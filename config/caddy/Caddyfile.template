@@ -7,6 +7,7 @@
     file_server {
         index field.html
     }
+    file_server /recordings/* browse
 }
 
 portainer.{{ field_name }}.{{ root_domain }} {

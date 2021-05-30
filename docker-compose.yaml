@@ -238,7 +238,7 @@ services:
       - guacamole
 
   autoref-erforce:
-    image: roboticserlangen/autoref:commit-e0d82143a649
+    image: roboticserlangen/autoref:commit-e7e90fccd59b
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
     restart: unless-stopped

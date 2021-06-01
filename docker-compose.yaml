@@ -202,7 +202,7 @@ services:
 
   # Maintainer is a container for the maintainers of the event for testing purposes
   maintainer:
-    image: robocupssl/ubuntu-vnc-go:0.3.0
+    image: robocupssl/ubuntu-vnc-go:0.3.1
     restart: unless-stopped
     mem_limit: 2g
     cpus: 2

@@ -23,6 +23,6 @@ COPY sshd_config /etc/ssh/sshd_config
 RUN useradd -ms /bin/bash default
 WORKDIR $HOME
 USER default
-COPY .icewm $HOME/.icewm/
+COPY --chown=default:default .icewm $HOME/.icewm/
 
 ENTRYPOINT ["/docker/startup.sh"]

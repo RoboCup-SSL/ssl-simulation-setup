@@ -54,9 +54,9 @@ services:
       - expose
 
   cadvisor:
-    image: google/cadvisor:v0.33.0
+    image: gcr.io/cadvisor/cadvisor:v0.39.1
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     #    ports:
     #      - 8080:8080

@@ -127,6 +127,24 @@ services:
     networks:
       - match
       - guacamole
+      
+  team-roboime:
+    image: roboime/robocup2021:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-roboime-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
 
 volumes:
   team-tigers-data:
@@ -136,6 +154,7 @@ volumes:
   team-robofei-data:
   team-roboteamtwente-data:
   team-uroborus-data:
+  team-roboime-data:
 
 networks:
   match:

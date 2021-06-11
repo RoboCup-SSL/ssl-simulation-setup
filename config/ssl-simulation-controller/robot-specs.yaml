@@ -88,12 +88,12 @@ robot-specs:
     max_chip_kick_speed: 8
     center_to_dribbler: 0.075
     limits:
-      acc_speedup_absolute_max: 5
-      acc_speedup_angular_max: 55
-      acc_brake_absolute_max: 6.2
-      acc_brake_angular_max: 55
-      vel_absolute_max: 4
-      vel_angular_max: 25
+      acc_speedup_absolute_max: 6.3
+      acc_speedup_angular_max: 60
+      acc_brake_absolute_max: 7.3
+      acc_brake_angular_max: 60
+      vel_absolute_max: 4.2
+      vel_angular_max: 20
     custom_erforce:
       shoot_radius: 0.07
-      dribbler_width: 0.07
+      dribbler_width: 0.072

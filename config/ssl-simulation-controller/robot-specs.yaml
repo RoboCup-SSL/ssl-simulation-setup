@@ -97,20 +97,20 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.07
       dribbler_width: 0.072
-  "RoboTeam Twente":
+  "RoboTeam Twente":	 
     radius: 0.09
     height: 0.149
     mass: 2.320
-    max_linear_kick_speed: 8
-    max_chip_kick_speed: 8
+    max_linear_kick_speed: 7.5
+    max_chip_kick_speed: 7.35
     center_to_dribbler: 0.0735
     limits:
-      acc_speedup_absolute_max: 5
+      acc_speedup_absolute_max: 5.9
       acc_speedup_angular_max: 55
-      acc_brake_absolute_max: 6.2
-      acc_brake_angular_max: 55
-      vel_absolute_max: 4
-      vel_angular_max: 25
+      acc_brake_absolute_max: 7.0
+      acc_brake_angular_max: 50
+      vel_absolute_max: 3.8
+      vel_angular_max: 4.88
     custom_erforce:
       shoot_radius: 0.07
       dribbler_width: 0.07

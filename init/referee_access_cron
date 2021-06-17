@@ -1,0 +1,2 @@
+50 * * * * /root/ssl-simulation-setup/config/referee-access/update_referees.sh
+1 * * * * /root/ssl-simulation-setup/config/referee-access/update_referees.sh

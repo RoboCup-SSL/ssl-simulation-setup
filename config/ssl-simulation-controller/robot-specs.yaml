@@ -114,3 +114,20 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.07
       dribbler_width: 0.07
+  "UBC Thunderbots":
+    radius: 0.09
+    height: 0.15
+    mass: 2.5
+    max_linear_kick_speed: 7
+    max_chip_kick_speed: 7
+    center_to_dribbler: 0.07
+    limits:
+      acc_speedup_absolute_max: 3.3
+      acc_speedup_angular_max: 38.6
+      acc_brake_absolute_max: 3.3
+      acc_brake_angular_max: 38.6
+      vel_absolute_max: 4.83
+      vel_angular_max: 56.8
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.088

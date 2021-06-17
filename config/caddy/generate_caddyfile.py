@@ -5,7 +5,7 @@ from jinja2 import Template
 
 script_dir = os.path.dirname(__file__)
 config_dir = script_dir + "/.."
-passwords_file = config_dir + "/caddy_passwords"
+passwords_file = config_dir + "/caddy_passwords_active"
 caddy_template_file = script_dir + "/Caddyfile.template"
 caddy_file = config_dir + "/../caddy/init/Caddyfile"
 

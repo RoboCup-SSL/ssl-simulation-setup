@@ -19,3 +19,4 @@ while IFS=':' read -ra ADDR; do
 done <"${CONFIG_DIR}/passwords" | tee "${CONFIG_DIR}/caddy_passwords_"
 
 mv "${CONFIG_DIR}/caddy_passwords_" "${CONFIG_DIR}/caddy_passwords"
+cp "${CONFIG_DIR}/caddy_passwords" "${CONFIG_DIR}/caddy_passwords_active"

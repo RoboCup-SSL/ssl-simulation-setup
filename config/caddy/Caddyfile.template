@@ -20,6 +20,10 @@ scheduling.{{ root_domain }} {
         {% for user in gc_users %}{{ user.name }} {{ user.hash }}
         {% endfor %}
     }
+    basicauth /replace_referee {
+        {% for user in gc_admin_users %}{{ user.name }} {{ user.hash }}
+        {% endfor %}
+    }
 }
 
 portainer.{{ field_name }}.{{ root_domain }} {

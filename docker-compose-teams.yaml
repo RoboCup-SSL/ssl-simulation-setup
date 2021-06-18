@@ -164,6 +164,24 @@ services:
       - match
       - guacamole
 
+  team-src:
+    image: xlq57913/robocup2021-src:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-src-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+      
   team-kiks:
     image: ghcr.io/kiksworks/ssl-simulation-env:main
     user: "1000"
@@ -192,6 +210,7 @@ volumes:
   team-uroborus-data:
   team-roboime-data:
   team-robodragons-data:
+  team-src-data:
   team-kiks-data:
 
 networks:

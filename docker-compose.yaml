@@ -4,7 +4,7 @@ services:
   caddy:
     image: caddy:2.2.1-alpine
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 1g
     cpus: 1
     ports:
       - "80:80/tcp"
@@ -72,7 +72,7 @@ services:
     image: robocupssl/ssl-vision-client:1.5.1
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     ports:
       - 8082/tcp
@@ -83,7 +83,7 @@ services:
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.4.0
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 1g
     cpus: 1
     ports:
       - 8082/tcp
@@ -103,8 +103,8 @@ services:
       - "-address"
       - ":8081"
     restart: unless-stopped
-    mem_limit: 100m
-    cpus: 1
+    mem_limit: 1g
+    cpus: 2
     volumes:
       - ssl-game-controller-config:/config:rw
     ports:
@@ -141,7 +141,7 @@ services:
       # ER-Force options
       GEOMETRY: "2020"
       REALISM: "RC2021"
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     ports:
       - 10300/udp
@@ -183,7 +183,7 @@ services:
       - "-robotSpecConfig"
       - "/config/robot-specs.yaml"
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 1g
     cpus: 1
     volumes:
       - ./config/ssl-simulation-controller:/config:ro
@@ -193,7 +193,7 @@ services:
   ssl-auto-recorder:
     image: robocupssl/ssl-auto-recorder:0.2.2
     restart: unless-stopped
-    mem_limit: 200m
+    mem_limit: 1g
     cpus: 1
     volumes:
       - ssl-auto-recorder-data:/data:rw

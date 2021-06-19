@@ -7,7 +7,7 @@ services:
       - "--admin-password-file"
       - "/tmp/portainer_password"
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -19,7 +19,7 @@ services:
   prometheus:
     image: prom/prometheus:v2.27.1
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     #    ports:
     #      - 9090:9090
@@ -37,7 +37,7 @@ services:
   node-exporter:
     image: prom/node-exporter:v1.1.2
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     #    ports:
     #      - 9100:9100
@@ -71,7 +71,7 @@ services:
   grafana:
     image: grafana/grafana:7.5.7
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     #    ports:
     #      - 3000:3000

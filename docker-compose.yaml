@@ -191,7 +191,7 @@ services:
       - simulator
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:0.2.1
+    image: robocupssl/ssl-auto-recorder:0.2.2
     restart: unless-stopped
     mem_limit: 200m
     cpus: 1

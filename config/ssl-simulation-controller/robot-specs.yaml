@@ -165,3 +165,20 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.07
       dribbler_width: 0.081
+  "RoboDragons":
+    radius: 0.09
+    height: 0.125
+    mass: 2.4
+    max_linear_kick_speed: 6.5
+    max_chip_kick_speed: 6.5
+    center_to_dribbler: 0.078
+    limits:
+      acc_speedup_absolute_max: 4.4
+      acc_speedup_angular_max: 55
+      acc_brake_absolute_max: 6
+      acc_brake_angular_max: 55
+      vel_absolute_max: 3.3
+      vel_angular_max: 25
+    custom_erforce:
+      shoot_radius: 0.0715
+      dribbler_width: 0.075

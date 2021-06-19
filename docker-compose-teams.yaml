@@ -231,7 +231,7 @@ volumes:
   team-robodragons-data:
   team-src-data:
   team-kiks-data:
-  team-kgpkubs:
+  team-kgpkubs-data:
 
 networks:
   match:

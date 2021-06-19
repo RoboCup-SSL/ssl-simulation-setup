@@ -199,6 +199,25 @@ services:
     networks:
       - match
       - guacamole
+  
+  team-kgpkubs:
+    image: nisarg1631/kgpkubs:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-kgpkubs-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
 
 volumes:
   team-tigers-data:

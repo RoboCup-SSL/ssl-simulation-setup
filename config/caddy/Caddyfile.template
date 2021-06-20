@@ -17,7 +17,7 @@ scheduling.{{ root_domain }} {
         {% endfor %}
     }
     basicauth /request_friendly {
-        {% for user in gc_users %}{{ user.name }} {{ user.hash }}
+        {% for user in gc_all_users %}{{ user.name }} {{ user.hash }}
         {% endfor %}
     }
     basicauth /replace_referee {

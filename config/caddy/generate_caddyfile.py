@@ -5,7 +5,8 @@ from jinja2 import Template
 
 script_dir = os.path.dirname(__file__)
 config_dir = script_dir + "/.."
-passwords_file = config_dir + "/caddy_passwords_active"
+all_passwords_file = config_dir + "/caddy_passwords"
+active_passwords_file = config_dir + "/caddy_passwords_active"
 caddy_template_file = script_dir + "/Caddyfile.template"
 caddy_file = config_dir + "/../caddy/init/Caddyfile"
 
@@ -25,7 +26,7 @@ def load_root_domain():
         return file.read().strip()
 
 
-def load_password_hashes():
+def load_password_hashes(passwords_file):
     if not os.path.isfile(passwords_file):
         return {}
     with open(passwords_file) as file:
@@ -40,12 +41,16 @@ def load_password_hashes():
 
 field_name = load_field_name()
 root_domain = load_root_domain()
-password_hashes = load_password_hashes()
+all_password_hashes = load_password_hashes(all_passwords_file)
+active_password_hashes = load_password_hashes(active_passwords_file)
 
 gc_users = []
+gc_all_users = []
 gc_admin_users = []
-for username, password_hash in password_hashes.items():
+for username, password_hash in active_password_hashes.items():
     gc_users.append({"name": username, "hash": password_hash})
+for username, password_hash in all_password_hashes.items():
+    gc_all_users.append({"name": username, "hash": password_hash})
     if username == "guacadmin":
         gc_admin_users.append({"name": username, "hash": password_hash})
 
@@ -54,6 +59,7 @@ caddyfile = template.render({
     "root_domain": root_domain,
     "field_name": field_name,
     "gc_users": gc_users,
+    "gc_all_users": gc_all_users,
     "gc_admin_users": gc_admin_users
 })
 with open(caddy_file, "w") as file:

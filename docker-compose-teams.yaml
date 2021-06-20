@@ -147,7 +147,7 @@ services:
       - guacamole
 
   team-robodragons:
-    image: sslrobodragons/robodragons-system:ubuntu20.04-robocup2021-simulation
+    image: sslrobodragons/robodragons-system:ubuntu20.04-robocup2021-simulation-c9440ae
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -199,6 +199,42 @@ services:
     networks:
       - match
       - guacamole
+  
+  team-kgpkubs:
+    image: nisarg1631/kgpkubs:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-kgpkubs-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+  team-omid:
+    image: fdmxfarhan/omid:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-omid-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+  
 
   team-robojackets:
     image: kylestach/robojackets-robocup-software:latest
@@ -231,6 +267,8 @@ volumes:
   team-src-data:
   team-kiks-data:
   team-robojackets-data:
+  team-kgpkubs-data:
+  team-omid-data:
 
 networks:
   match:

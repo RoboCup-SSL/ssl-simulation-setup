@@ -4,7 +4,7 @@ services:
   caddy:
     image: caddy:2.2.1-alpine
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 1g
     cpus: 1
     ports:
       - "80:80/tcp"
@@ -72,7 +72,7 @@ services:
     image: robocupssl/ssl-vision-client:1.5.1
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     ports:
       - 8082/tcp
@@ -81,9 +81,9 @@ services:
       - expose
 
   ssl-status-board:
-    image: robocupssl/ssl-status-board:2.2.1
+    image: robocupssl/ssl-status-board:2.4.0
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 1g
     cpus: 1
     ports:
       - 8082/tcp
@@ -92,7 +92,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.10.4
+    image: robocupssl/ssl-game-controller:2.12.0
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -103,8 +103,8 @@ services:
       - "-address"
       - ":8081"
     restart: unless-stopped
-    mem_limit: 100m
-    cpus: 1
+    mem_limit: 1g
+    cpus: 2
     volumes:
       - ssl-game-controller-config:/config:rw
     ports:
@@ -134,14 +134,14 @@ services:
       - match
 
   simulator-private:
-    image: roboticserlangen/simulatorcli:commit-3831eb81e803
+    image: roboticserlangen/simulatorcli:commit-c53a2f401013
 #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
     environment:
       # ER-Force options
       GEOMETRY: "2020"
       REALISM: "RC2021"
-    mem_limit: 100m
+    mem_limit: 500m
     cpus: 1
     ports:
       - 10300/udp
@@ -170,7 +170,7 @@ services:
       - match
 
   ssl-simulation-controller:
-    image: robocupssl/ssl-simulation-controller:0.7.3
+    image: robocupssl/ssl-simulation-controller:0.7.5
     command:
       - "-refereeAddress"
       - "224.5.23.1:11003"
@@ -183,7 +183,7 @@ services:
       - "-robotSpecConfig"
       - "/config/robot-specs.yaml"
     restart: unless-stopped
-    mem_limit: 100m
+    mem_limit: 1g
     cpus: 1
     volumes:
       - ./config/ssl-simulation-controller:/config:ro
@@ -191,9 +191,9 @@ services:
       - simulator
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:0.2.1
+    image: robocupssl/ssl-auto-recorder:0.2.2
     restart: unless-stopped
-    mem_limit: 200m
+    mem_limit: 1g
     cpus: 1
     volumes:
       - ssl-auto-recorder-data:/data:rw
@@ -221,7 +221,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:0.12.0
+    image: tigersmannheim/auto-referee-vnc:0.13.0
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc", "-a" ]
     # Run without UI in active mode
@@ -238,7 +238,7 @@ services:
       - guacamole
 
   autoref-erforce:
-    image: roboticserlangen/autoref:commit-e7e90fccd59b
+    image: roboticserlangen/autoref:commit-21407b107208
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
     restart: unless-stopped

@@ -181,7 +181,7 @@ services:
     networks:
       - match
       - guacamole
-      
+
   team-kiks:
     image: ghcr.io/kiksworks/ssl-simulation-env:main
     user: "1000"
@@ -236,6 +236,24 @@ services:
       - guacamole
   
 
+  team-robojackets:
+    image: kylestach/robojackets-robocup-software:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-robojackets-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
+
 volumes:
   team-tigers-data:
   team-erforce-data:
@@ -248,6 +266,7 @@ volumes:
   team-robodragons-data:
   team-src-data:
   team-kiks-data:
+  team-robojackets-data:
   team-kgpkubs-data:
   team-omid-data:
 

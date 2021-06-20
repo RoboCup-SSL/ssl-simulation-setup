@@ -199,7 +199,7 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.074
       dribbler_width: 0.05
-  "omid":    
+  "OMID":    
     radius: 0.085
     height: 0.147
     mass: 2.5

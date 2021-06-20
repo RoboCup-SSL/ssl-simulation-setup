@@ -80,3 +80,105 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.07
       dribbler_width: 0.07
+  "RoboIME":
+    radius: 0.09
+    height: 0.15
+    mass: 2.5
+    max_linear_kick_speed: 8
+    max_chip_kick_speed: 8
+    center_to_dribbler: 0.075
+    limits:
+      acc_speedup_absolute_max: 6.3
+      acc_speedup_angular_max: 60
+      acc_brake_absolute_max: 7.3
+      acc_brake_angular_max: 60
+      vel_absolute_max: 4.2
+      vel_angular_max: 20
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.072
+  "RoboTeam Twente":	 
+    radius: 0.09
+    height: 0.149
+    mass: 2.320
+    max_linear_kick_speed: 7.5
+    max_chip_kick_speed: 7.35
+    center_to_dribbler: 0.0735
+    limits:
+      acc_speedup_absolute_max: 5.9
+      acc_speedup_angular_max: 55
+      acc_brake_absolute_max: 7.0
+      acc_brake_angular_max: 50
+      vel_absolute_max: 3.8
+      vel_angular_max: 4.88
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.07
+  "UBC Thunderbots":
+    radius: 0.09
+    height: 0.15
+    mass: 2.5
+    max_linear_kick_speed: 7
+    max_chip_kick_speed: 7
+    center_to_dribbler: 0.07
+    limits:
+      acc_speedup_absolute_max: 3.3
+      acc_speedup_angular_max: 38.6
+      acc_brake_absolute_max: 3.3
+      acc_brake_angular_max: 38.6
+      vel_absolute_max: 4.83
+      vel_angular_max: 56.8
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.088
+  "SRC":
+    radius: 0.09
+    height: 0.15
+    mass: 2.5
+    max_linear_kick_speed: 7
+    max_chip_kick_speed: 7
+    center_to_dribbler: 0.076
+    limits:
+      acc_speedup_absolute_max: 4.5
+      acc_speedup_angular_max: 55
+      acc_brake_absolute_max: 6
+      acc_brake_angular_max: 55
+      vel_absolute_max: 4.2
+      vel_angular_max: 25
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.064
+  "KIKS":
+    radius: 0.089
+    height: 0.132
+    mass: 2.6
+    max_linear_kick_speed: 8
+    max_chip_kick_speed: 8
+    center_to_dribbler: 0.078
+    limits:
+      acc_speedup_absolute_max: 6
+      acc_speedup_angular_max: 30
+      acc_brake_absolute_max: 6
+      acc_brake_angular_max: 30
+      vel_absolute_max: 4.5
+      vel_angular_max: 20
+    custom_erforce:
+      shoot_radius: 0.07
+      dribbler_width: 0.081
+  "RoboDragons":
+    radius: 0.09
+    height: 0.125
+    mass: 2.4
+    max_linear_kick_speed: 6.5
+    max_chip_kick_speed: 6.5
+    center_to_dribbler: 0.078
+    limits:
+      acc_speedup_absolute_max: 4.4
+      acc_speedup_angular_max: 55
+      acc_brake_absolute_max: 6
+      acc_brake_angular_max: 55
+      vel_absolute_max: 3.3
+      vel_angular_max: 25
+    custom_erforce:
+      shoot_radius: 0.0715
+      dribbler_width: 0.075

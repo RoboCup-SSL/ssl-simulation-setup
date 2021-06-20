@@ -5,7 +5,7 @@ from jinja2 import Template
 
 script_dir = os.path.dirname(__file__)
 config_dir = script_dir + "/.."
-passwords_file = config_dir + "/caddy_passwords"
+passwords_file = config_dir + "/caddy_passwords_active"
 caddy_template_file = script_dir + "/Caddyfile.template"
 caddy_file = config_dir + "/../caddy/init/Caddyfile"
 
@@ -43,14 +43,18 @@ root_domain = load_root_domain()
 password_hashes = load_password_hashes()
 
 gc_users = []
+gc_admin_users = []
 for username, password_hash in password_hashes.items():
     gc_users.append({"name": username, "hash": password_hash})
+    if username == "guacadmin":
+        gc_admin_users.append({"name": username, "hash": password_hash})
 
 template = Template(load_caddyfile_template())
 caddyfile = template.render({
     "root_domain": root_domain,
     "field_name": field_name,
-    "gc_users": gc_users
+    "gc_users": gc_users,
+    "gc_admin_users": gc_admin_users
 })
 with open(caddy_file, "w") as file:
     file.write(caddyfile)

@@ -38,7 +38,7 @@
   },
   "attributes": {
     "max-connections": "1000",
-    "max-connections-per-user": "",
+    "max-connections-per-user": "10",
     "weight": "",
     "failover-only": "",
     "guacd-port": "",

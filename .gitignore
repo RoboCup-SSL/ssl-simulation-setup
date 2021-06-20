@@ -4,6 +4,8 @@
 /config/vnc_rsa*
 /config/passwords
 /config/caddy_passwords
+/config/caddy_passwords_active
 /config/portainer_password
 **/__pycache__
 .env
+*.DS_Store

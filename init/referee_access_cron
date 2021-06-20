@@ -1,0 +1,5 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+
+50 * * * * root /root/ssl-simulation-setup/config/referee-access/update_referees.sh  &>> /var/log/referee-access.log
+1 * * * * root /root/ssl-simulation-setup/config/referee-access/update_referees.sh  &>> /var/log/referee-access.log

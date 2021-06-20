@@ -182,3 +182,20 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.0715
       dribbler_width: 0.075
+  "URoboRus":    
+    radius: 0.09
+    height: 0.147
+    mass: 1.5
+    max_linear_kick_speed: 8
+    max_chip_kick_speed: 5
+    center_to_dribbler: 0.078
+    limits:
+      acc_speedup_absolute_max: 3
+      acc_speedup_angular_max: 60
+      acc_brake_absolute_max: 6
+      acc_brake_angular_max: 60
+      vel_absolute_max: 2
+      vel_angular_max: 32
+    custom_erforce:
+      shoot_radius: 0.074
+      dribbler_width: 0.05

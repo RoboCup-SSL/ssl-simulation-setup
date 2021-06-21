@@ -127,7 +127,7 @@ services:
     networks:
       - match
       - guacamole
-      
+
   team-roboime:
     image: roboime/robocup2021:latest
     user: "1000"
@@ -181,7 +181,7 @@ services:
     networks:
       - match
       - guacamole
-      
+
   team-kiks:
     image: ghcr.io/kiksworks/ssl-simulation-env:main
     user: "1000"
@@ -199,7 +199,7 @@ services:
     networks:
       - match
       - guacamole
-  
+
   team-kgpkubs:
     image: nisarg1631/kgpkubs:latest
     user: "1000"
@@ -217,6 +217,7 @@ services:
     networks:
       - match
       - guacamole
+
   team-omid:
     image: robocupssl/omid:latest
     user: "1000"
@@ -234,7 +235,24 @@ services:
     networks:
       - match
       - guacamole
-  
+
+  team-robojackets:
+    image: kylestach/robojackets-robocup-software:latest
+    user: "1000"
+    restart: unless-stopped
+    mem_limit: "${TEAM_LIMIT_MEM}"
+    cpus: "${TEAM_LIMIT_CPU}"
+    environment:
+      SSH_PUBLIC_KEY:
+      VNC_PW:
+    volumes:
+      - team-robojackets-data:/home/default:rw
+    ports:
+      - 5901/tcp
+      - 2222/tcp
+    networks:
+      - match
+      - guacamole
 
 volumes:
   team-tigers-data:
@@ -250,6 +268,7 @@ volumes:
   team-kiks-data:
   team-kgpkubs-data:
   team-omid-data:
+  team-robojackets-data:
 
 networks:
   match:

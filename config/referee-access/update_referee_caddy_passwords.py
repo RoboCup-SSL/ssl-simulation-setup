@@ -9,6 +9,7 @@ script_dir = os.path.dirname(__file__)
 config_dir = script_dir + "/.."
 offset_before_seconds = 15 * 60
 duration_seconds = 120 * 60
+extra_duration_seconds = 120 * 60
 admin_users = {"guacadmin"}
 root_domain_file = config_dir + "/root_domain"
 tournament_path = "/tournament_json"
@@ -57,7 +58,7 @@ def current_field():
         return file.read().strip().replace("field-", "").upper()
 
 
-def find_referees():
+def find_referees(max_duration):
     schedule = json.loads(fetch_tournament())
     field = current_field()
     now = datetime.utcnow().timestamp()
@@ -66,7 +67,7 @@ def find_referees():
         if row["field"] == field:
             start_timestamp = datetime.strptime(row["day"] + "_" + row["starttime"], '%Y-%m-%d_%H:%M').timestamp()
             timestamp_diff = now - start_timestamp
-            if -offset_before_seconds < timestamp_diff < duration_seconds:
+            if -offset_before_seconds < timestamp_diff < max_duration:
                 referees += row["referee"].split(",")
     return referees
 
@@ -83,7 +84,15 @@ def write_caddy_passwords(teams):
 
 
 if __name__ == '__main__':
-    refs = find_referees()
+    # Get referees for next hour
+    refs = find_referees(duration_seconds)
+    if len(refs) == 0:
+        # If there are none: Take all (below)
+        refs = []
+    else:
+        # Else: Get those, but also for one more hour
+        refs = find_referees(extra_duration_seconds)
+
     team_map = team_name_map()
     users = set()
     for ref in refs:

@@ -64,7 +64,7 @@ robot-specs:
     custom_erforce:
       shoot_radius: 0.067
       dribbler_width: 0.07
-  "RobôCIn":
+  "RobôCin":
     radius: 0.088
     height: 0.148
     mass: 2.45

@@ -8,7 +8,7 @@ from urllib import request
 script_dir = os.path.dirname(__file__)
 config_dir = script_dir + "/.."
 offset_before_seconds = 15 * 60
-duration_seconds = 60 * 60
+duration_seconds = 120 * 60
 admin_users = {"guacadmin"}
 root_domain_file = config_dir + "/root_domain"
 tournament_path = "/tournament_json"

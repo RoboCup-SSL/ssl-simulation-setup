@@ -8,6 +8,24 @@
 # - More details on how the custom parameters for the ER-Force sim are applied can be found at:
 #     https://github.com/RoboCup-SSL/ssl-simulation-protocol/tree/master/proto/erforce
 robot-specs:
+  "Unknown":
+    radius: 0.09
+    # Height up to the flat surface, excluding screws.
+    height: 0.143
+    mass: 2.7
+    max_linear_kick_speed: 6
+    max_chip_kick_speed: 6
+    center_to_dribbler: 0.078
+    limits:
+      acc_speedup_absolute_max: 2
+      acc_speedup_angular_max: 20
+      acc_brake_absolute_max: 2
+      acc_brake_angular_max: 20
+      vel_absolute_max: 2
+      vel_angular_max: 5
+    custom_erforce:
+      shoot_radius: 0.0715
+      dribbler_width: 0.065
   "TIGERs Mannheim":
     radius: 0.09
     # Height up to the flat surface, excluding screws.

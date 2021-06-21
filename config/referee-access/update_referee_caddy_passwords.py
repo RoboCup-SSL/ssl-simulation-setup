@@ -59,13 +59,15 @@ def current_field():
 
 def find_referees():
     schedule = json.loads(fetch_tournament())
+    field = current_field()
     now = datetime.utcnow().timestamp()
     referees = []
     for row in schedule:
-        start_timestamp = datetime.strptime(row["day"] + "_" + row["starttime"], '%Y-%m-%d_%H:%M').timestamp()
-        timestamp_diff = now - start_timestamp
-        if -offset_before_seconds < timestamp_diff < duration_seconds:
-            referees += row["referee"].split(",")
+        if row["field"] == field:
+            start_timestamp = datetime.strptime(row["day"] + "_" + row["starttime"], '%Y-%m-%d_%H:%M').timestamp()
+            timestamp_diff = now - start_timestamp
+            if -offset_before_seconds < timestamp_diff < duration_seconds:
+                referees += row["referee"].split(",")
     return referees
 
 

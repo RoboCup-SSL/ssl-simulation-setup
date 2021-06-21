@@ -7,8 +7,8 @@ services:
       - "--admin-password-file"
       - "/tmp/portainer_password"
     restart: unless-stopped
-    mem_limit: 500m
-    cpus: 1
+    mem_limit: 2g
+    cpus: 2
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config/portainer_password:/tmp/portainer_password
@@ -19,8 +19,8 @@ services:
   prometheus:
     image: prom/prometheus:v2.27.1
     restart: unless-stopped
-    mem_limit: 500m
-    cpus: 1
+    mem_limit: 2g
+    cpus: 2
     #    ports:
     #      - 9090:9090
     command:
@@ -37,8 +37,8 @@ services:
   node-exporter:
     image: prom/node-exporter:v1.1.2
     restart: unless-stopped
-    mem_limit: 500m
-    cpus: 1
+    mem_limit: 2g
+    cpus: 2
     #    ports:
     #      - 9100:9100
     volumes:
@@ -56,8 +56,8 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.39.1
     restart: unless-stopped
-    mem_limit: 500m
-    cpus: 1
+    mem_limit: 2g
+    cpus: 2
     #    ports:
     #      - 8080:8080
     volumes:
@@ -71,8 +71,8 @@ services:
   grafana:
     image: grafana/grafana:7.5.7
     restart: unless-stopped
-    mem_limit: 500m
-    cpus: 1
+    mem_limit: 2g
+    cpus: 2
     #    ports:
     #      - 3000:3000
     volumes:

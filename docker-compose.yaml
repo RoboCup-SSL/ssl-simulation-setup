@@ -92,7 +92,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.12.1
+    image: robocupssl/ssl-game-controller:2.12.4
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"

@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+
+*/5 * * * * root /root/ssl-simulation-setup/init/stats.sh  &>> /var/log/stats.log

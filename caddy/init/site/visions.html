@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <title>SSL Virtual Tournament</title>
+
+    <style>
+        html, body {
+            height: 100vh;
+            width: 100vw;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0 0;
+            grid-template-areas: 
+    ". ."
+    ". .";
+        }
+
+        iframe {
+            height: 100%;
+            width: 100%;
+            resize: horizontal;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<iframe id="iframe-a" title="field-a" class="iframe" src="@protocol@://vision.field-a.@parent-domain@"></iframe>
+<iframe id="iframe-b" title="field-b" class="iframe" src="@protocol@://vision.field-b.@parent-domain@"></iframe>
+<iframe id="iframe-c" title="field-c" class="iframe" src="@protocol@://vision.field-c.@parent-domain@"></iframe>
+<iframe id="iframe-d" title="field-d" class="iframe" src="@protocol@://vision.field-d.@parent-domain@"></iframe>
+</body>
+
+<script>
+    for (const iframe of document.getElementsByClassName("iframe")) {
+        if (iframe.hasAttribute('src')) {
+            const src = iframe.getAttribute('src')
+                .replace('@parent-domain@', window.location.hostname)
+                .replace('@protocol@:', window.location.protocol);
+            iframe.setAttribute('src', src);
+        }
+    }
+</script>
+</html>

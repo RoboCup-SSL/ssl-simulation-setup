@@ -4,8 +4,6 @@ services:
   caddy:
     image: caddy:2.2.1-alpine
     restart: unless-stopped
-    mem_limit: 6g
-    cpus: 4
     ports:
       - "80:80/tcp"
       - "443:443/tcp"
@@ -21,8 +19,6 @@ services:
   guacd:
     image: guacamole/guacd:1.3.0
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: 2
     volumes:
       - guacd-drive:/drive:rw
       - guacd-record:/record:rw
@@ -33,8 +29,6 @@ services:
   postgres:
     image: postgres:13
     restart: unless-stopped
-    mem_limit: 1g
-    cpus: 1
     environment:
       PGDATA: /var/lib/postgresql/data/guacamole
       POSTGRES_DB: guacamole_db
@@ -51,8 +45,6 @@ services:
   guacamole:
     image: guacamole/guacamole:1.3.0
     restart: unless-stopped
-    mem_limit: 5g
-    cpus: 4
     environment:
       GUACD_HOSTNAME: guacd
       POSTGRES_DATABASE: guacamole_db
@@ -72,8 +64,6 @@ services:
     image: robocupssl/ssl-vision-client:1.5.1
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
-    mem_limit: 4g
-    cpus: 4
     ports:
       - 8082/tcp
     networks:
@@ -83,8 +73,6 @@ services:
   ssl-status-board:
     image: robocupssl/ssl-status-board:2.4.1
     restart: unless-stopped
-    mem_limit: 4g
-    cpus: 2
     ports:
       - 8082/tcp
     networks:
@@ -103,8 +91,6 @@ services:
       - "-address"
       - ":8081"
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: 4
     volumes:
       - ssl-game-controller-config:/config:rw
     ports:
@@ -123,8 +109,6 @@ services:
       - "mc,224.5.23.2:10006,224.5.23.2:11006,Vision"
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: 2
     ports:
       - 10007/tcp
       - 10008/tcp
@@ -141,8 +125,6 @@ services:
       # ER-Force options
       GEOMETRY: "2020"
       REALISM: "RC2021"
-    mem_limit: 1g
-    cpus: 2
     ports:
       - 10300/udp
       - 10301/udp
@@ -159,8 +141,6 @@ services:
       - "mc,224.5.23.1:10003,224.5.23.1:11003,Referee"
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
     restart: unless-stopped
-    mem_limit: 1g
-    cpus: 2
     ports:
       - 10300/udp
       - 10301/udp
@@ -183,8 +163,6 @@ services:
       - "-robotSpecConfig"
       - "/config/robot-specs.yaml"
     restart: unless-stopped
-    mem_limit: 1g
-    cpus: 1
     volumes:
       - ./config/ssl-simulation-controller:/config:ro
     networks:
@@ -193,8 +171,6 @@ services:
   ssl-auto-recorder:
     image: robocupssl/ssl-auto-recorder:0.2.2
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: 1
     volumes:
       - ssl-auto-recorder-data:/data:rw
     networks:
@@ -227,8 +203,6 @@ services:
     # Run without UI in active mode
     command: [ "-a" ]
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: 2
     environment:
       - VNC_PASSWORD=${VNC_PW}
     ports:
@@ -242,8 +216,6 @@ services:
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: 2
     environment:
       - VNC_PASSWORD=${VNC_PW}
     ports:

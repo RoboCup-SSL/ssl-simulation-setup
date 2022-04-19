@@ -1,4 +1,4 @@
-.PHONY: all ubuntu-vnc ubuntu-vnc-java
+.PHONY: all ubuntu-vnc ubuntu-vnc-java ubuntu-vnc-go
 
 all: ubuntu-vnc ubuntu-vnc-java
 

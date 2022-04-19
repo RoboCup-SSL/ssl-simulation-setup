@@ -1,0 +1,73 @@
+version: 2
+jobs:
+  docker-ubuntu-vnc:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.11
+      - run: |
+          TAG=${CIRCLE_TAG:1}
+          TAG=${TAG:-latest}
+          docker build -t robocupssl/ubuntu-vnc:$TAG ./src/ubuntu-vnc
+          docker login -u "${DOCKER_HUB_USERNAME}" -p "${DOCKER_HUB_PASSWORD}"
+          docker push robocupssl/ubuntu-vnc:$TAG
+
+  docker-ubuntu-vnc-java:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.11
+      - run: |
+          TAG=${CIRCLE_TAG:1}
+          TAG=${TAG:-latest}
+          docker build -t robocupssl/ubuntu-vnc-java:$TAG ./src/ubuntu-vnc-java
+          docker login -u "${DOCKER_HUB_USERNAME}" -p "${DOCKER_HUB_PASSWORD}"
+          docker push robocupssl/ubuntu-vnc-java:$TAG
+
+  docker-ubuntu-vnc-go:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.11
+      - run: |
+          TAG=${CIRCLE_TAG:1}
+          TAG=${TAG:-latest}
+          docker build -t robocupssl/ubuntu-vnc-go:$TAG ./src/ubuntu-vnc-go
+          docker login -u "${DOCKER_HUB_USERNAME}" -p "${DOCKER_HUB_PASSWORD}"
+          docker push robocupssl/ubuntu-vnc-go:$TAG
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - docker-ubuntu-vnc:
+          context: docker hub
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/
+      - docker-ubuntu-vnc-java:
+          context: docker hub
+          requires:
+            - docker-ubuntu-vnc
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/
+      - docker-ubuntu-vnc-go:
+          context: docker hub
+          requires:
+            - docker-ubuntu-vnc
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/

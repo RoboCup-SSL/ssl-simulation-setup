@@ -57,7 +57,7 @@ services:
       - guacamole
 
   team-robocin:
-    image: lhcs/robocin-coach:latest
+    image: robocin/ssl-unification-robocup:latest
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"

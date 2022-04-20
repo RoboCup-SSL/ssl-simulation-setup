@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   caddy:
-    image: caddy:2.2.1-alpine
+    image: caddy:2-alpine
     restart: unless-stopped
     ports:
       - "80:80/tcp"
@@ -17,7 +17,7 @@ services:
       - expose
 
   guacd:
-    image: guacamole/guacd:1.3.0
+    image: guacamole/guacd:1.4.0
     restart: unless-stopped
     volumes:
       - guacd-drive:/drive:rw
@@ -43,7 +43,7 @@ services:
       - guacamole
 
   guacamole:
-    image: guacamole/guacamole:1.3.0
+    image: guacamole/guacamole:1.4.0
     restart: unless-stopped
     environment:
       GUACD_HOSTNAME: guacd
@@ -71,7 +71,7 @@ services:
       - expose
 
   ssl-status-board:
-    image: robocupssl/ssl-status-board:2.4.1
+    image: robocupssl/ssl-status-board:2.5.0
     restart: unless-stopped
     ports:
       - 8082/tcp
@@ -80,7 +80,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.12.7
+    image: robocupssl/ssl-game-controller:2.15.2
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -118,7 +118,7 @@ services:
       - match
 
   simulator-private:
-    image: roboticserlangen/simulatorcli:commit-d893d1c00a4b
+    image: roboticserlangen/simulatorcli:commit-6a4e1c06533b
 #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
     environment:
@@ -197,7 +197,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:0.13.0
+    image: tigersmannheim/auto-referee-vnc:0.13.1
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc", "-a" ]
     # Run without UI in active mode

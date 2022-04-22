@@ -10,4 +10,11 @@ docker cp ssl-simulation-setup_caddy_1:/data/caddy/pki/authorities/local/root.cr
 # The CA can now be installed in your system or in your web browser directly
 
 # For Arch Linux and Fedora, this command should install the CA system wide (a browser restart may be required)
-sudo trust anchor --store "${SCRIPT_DIR}/local-ca.crt"
+if lsb_release -sd | grep "Ubuntu" &>/dev/null; then
+  # For Ubuntu
+  sudo cp "${SCRIPT_DIR}/local-ca.crt" /usr/local/share/ca-certificates/
+  sudo update-ca-certificates
+else
+  # For Arch Linux and Fedora,
+  sudo trust anchor --store "${SCRIPT_DIR}/local-ca.crt"
+fi

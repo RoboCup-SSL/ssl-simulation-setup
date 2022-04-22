@@ -13,7 +13,7 @@ while IFS=':' read -ra ADDR; do
   username=${ADDR[0]}
   password=${ADDR[1]}
   if ! grep "${username}" "${CONFIG_DIR}/caddy_passwords"; then
-    hashed_password=$(docker run caddy:2.2.1-alpine caddy hash-password --plaintext "${password}")
+    hashed_password=$(docker run caddy:2-alpine caddy hash-password --plaintext "${password}")
     echo "${username}:${hashed_password}"
   fi
 done <"${CONFIG_DIR}/passwords" | tee "${CONFIG_DIR}/caddy_passwords_"

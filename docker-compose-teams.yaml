@@ -1,8 +1,8 @@
-version: '3'
+version: '2.4'
 
 services:
   team-tigers:
-    image: robocupssl/ubuntu-vnc-java:latest
+    image: robocupssl/ubuntu-vnc-java:0.3.2
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"

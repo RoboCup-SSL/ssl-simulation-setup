@@ -93,7 +93,7 @@ services:
       - guacamole
 
   team-roboteamtwente:
-    image: yuhanuncitgez/robocup:latest
+    image: roboteamtwente/practice_tournament:latest
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"

@@ -80,7 +80,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.15.4
+    image: robocupssl/ssl-game-controller:2.15.5
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"

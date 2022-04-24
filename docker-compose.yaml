@@ -80,7 +80,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:2.15.7
+    image: robocupssl/ssl-game-controller:2.15.8
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -197,7 +197,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee:0.14.1
+    image: tigersmannheim/auto-referee:0.14.2
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc", "-a" ]
     # Run without UI in active mode

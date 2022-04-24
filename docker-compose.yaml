@@ -150,7 +150,7 @@ services:
       - match
 
   ssl-simulation-controller:
-    image: robocupssl/ssl-simulation-controller:0.10.2
+    image: robocupssl/ssl-simulation-controller:0.11.0
     command:
       - "-refereeAddress"
       - "224.5.23.1:11003"

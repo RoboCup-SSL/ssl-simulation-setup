@@ -48,7 +48,7 @@ services:
       - expose
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.39.1
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
     restart: unless-stopped
     #    ports:
     #      - 8080:8080

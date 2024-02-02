@@ -124,6 +124,7 @@ Make sure to make yourself familiar with AWS and terraform, before doing this.
 
 The database setup scripts are pre-generated already, but if
 the guacamole version changes, the script might need to be generated again with:
+
 ```shell
-docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > init/postgres/01_initdb.sql
+docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql > init/postgres/01_initdb.sql
 ```

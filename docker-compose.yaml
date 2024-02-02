@@ -17,7 +17,7 @@ services:
       - expose
 
   guacd:
-    image: guacamole/guacd:1.4.0
+    image: guacamole/guacd:1.5.4
     restart: unless-stopped
     volumes:
       - guacd-drive:/drive:rw

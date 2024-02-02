@@ -37,13 +37,10 @@ if ! dpkg -l | grep docker-ce; then
     "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
   sudo apt-get update
-  sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-  # Install docker-compose based on https://docs.docker.com/compose/install/
-  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
   echo "alias d=docker" >>~/.bashrc
-  echo "alias dc=docker-compose" >>~/.bashrc
+  echo "alias dc=docker compose" >>~/.bashrc
 fi
 
 repo_dir="$HOME/ssl-simulation-setup"
@@ -59,11 +56,11 @@ echo -n "${ROOT_DOMAIN}" >config/root_domain
 echo -n "${FIELD_NAME}" >config/field_name
 ./config/docker/init.sh
 ./config/caddy/generate_caddyfile.py
-docker-compose up -d
+docker compose up -d
 sleep 30s
 ./config/guacamole/update_guacamole.py
 ./config/caddy/update_caddy_passwords.sh
 ./config/caddy/generate_caddyfile.py
 ./config/caddy/update_caddy_config.sh
 
-docker-compose -f docker-compose-teams.yaml up -d
+docker compose -f docker-compose-teams.yaml up -d

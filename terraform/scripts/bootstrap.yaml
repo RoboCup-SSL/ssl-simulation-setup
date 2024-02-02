@@ -36,9 +36,9 @@ write_files:
       cd ssl-simulation-setup
       echo -n "${root_domain}" > config/root_domain
       ./config/docker/init.sh
-      docker-compose up -d
+      docker compose up -d
       sleep 10s
-      (cd caddy && docker-compose up -d)
+      (cd caddy && docker compose up -d)
       sleep 30s
       ./config/guacamole/update_guacamole.py
       ./config/caddy/update_caddy_passwords.sh

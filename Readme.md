@@ -57,9 +57,9 @@ Next, generate the initial Caddyfile for the webserver:
 Now, you can spin up the field:
 ```shell
 # Start all containers and keep showing the log in the foreground (ctrl+c will stop everything again)
-docker-compose up
+docker compose up
 # Or alternatively run all containers in the background:
-docker-compose up -d
+docker compose up -d
 ```
 
 Next, setup Guacamole and caddy:
@@ -77,7 +77,7 @@ Next, setup Guacamole and caddy:
 Finally, spin up the team containers that you need:
 ```shell
 # Start team containers (individually or all together)
-docker-compose -f docker-compose-teams.yaml up [team-container]
+docker compose -f docker-compose-teams.yaml up [team-container]
 ```
 
 
@@ -107,7 +107,7 @@ All credentials were generated to [./config/passwords](./config/passwords).
 
 Stop and remove all containers, networks and volumes (`-v`) for a specific field:
 ```shell
-docker-compose down -v
+docker compose down -v
 ```
 
 

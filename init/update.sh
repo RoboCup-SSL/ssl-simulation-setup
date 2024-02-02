@@ -11,8 +11,8 @@ git pull
 ./config/caddy/update_caddy_passwords.sh
 ./config/caddy/generate_caddyfile.py
 ./config/caddy/update_caddy_config.sh
-docker-compose -f docker-compose.yaml -f docker-compose-teams.yaml -f docker-compose-monitoring.yaml pull
-docker-compose -f docker-compose.yaml -f docker-compose-teams.yaml -f docker-compose-monitoring.yaml up -d
+docker compose -f docker-compose.yaml -f docker-compose-teams.yaml -f docker-compose-monitoring.yaml pull
+docker compose -f docker-compose.yaml -f docker-compose-teams.yaml -f docker-compose-monitoring.yaml up -d
 
 #cp ./init/referee_access_cron /etc/cron.d/
 #cp ./init/stats_cron /etc/cron.d/

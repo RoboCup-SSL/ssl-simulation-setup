@@ -30,7 +30,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_eip" "lb" {
   instance = aws_instance.web.id
-  vpc      = true
+  domain   = "vpc"
 }
 
 resource "aws_vpc" "vpc" {

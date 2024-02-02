@@ -18,14 +18,12 @@ users:
     groups: users, admin, docker
     lock_passwd: false
     ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJqakzRMOnYMYVAjai8JOTdg3stzshNLgHNEgzk9aOMg geforce@thinkpad-p1
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJqakzRMOnYMYVAjai8JOTdg3stzshNLgHNEgzk9aOMg
 
 packages:
   - git
   - vim
   - python3
-  - docker
-  - docker-compose
 
 write_files:
   - content: |
@@ -36,9 +34,9 @@ write_files:
       cd ssl-simulation-setup
       echo -n "${root_domain}" > config/root_domain
       ./config/docker/init.sh
+      ./config/caddy/generate_caddyfile.py
       docker compose up -d
-      sleep 10s
-      (cd caddy && docker compose up -d)
+      docker compose -f docker-compose-monitoring.yaml up -d
       sleep 30s
       ./config/guacamole/update_guacamole.py
       ./config/caddy/update_caddy_passwords.sh
@@ -49,4 +47,5 @@ write_files:
     permissions: '0755'
 
 runcmd:
+  - curl -fsSL https://get.docker.com | sh
   - [ "su", "--login", "terraform", "-c", "/init.sh" ]

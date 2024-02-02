@@ -80,6 +80,11 @@ Finally, spin up the team containers that you need:
 docker compose -f docker-compose-teams.yaml up [team-container]
 ```
 
+If you want to have additional monitoring, you can also start the monitoring containers:
+```shell
+# Start monitoring containers
+docker compose -f docker-compose-monitoring.yaml up
+```
 
 # Access
 
@@ -118,7 +123,27 @@ cd terraform
 terraform init
 terraform apply
 ```
-Make sure to make yourself familiar with AWS and terraform, before doing this.
+Make sure to make yourself familiar with AWS and terraform, before doing this. Most notably:
+- You have to install AWS CLI and configure it with your credentials
+- You have to add your public key to [./terraform/scripts/bootstrap.yaml](./terraform/scripts/bootstrap.yaml) to be able to SSH into the instances
+- You have to configure a domain and point it to the public IP that is returned by terraform
+- You have to set the required TF variables
+
+You can connect to the instances with:
+```shell
+ssh terraform@<public-ip>
+# Check the cloud-init log
+less /var/log/cloud-init-output.log
+# Go to setup folder
+cd ssl-simulation-setup
+# Start team containers
+docker compose -f docker-compose-teams.yaml up -d [team-container]
+```
+
+To destroy the setup, run:
+```shell
+terraform destroy
+```
 
 # Update
 

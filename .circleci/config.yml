@@ -2,7 +2,7 @@ version: 2
 jobs:
   docker-ubuntu-vnc:
     docker:
-      - image: cimg/base:2022.04
+      - image: cimg/base:2022.12
     steps:
       - checkout
       - setup_remote_docker:
@@ -16,7 +16,7 @@ jobs:
 
   docker-ubuntu-vnc-java:
     docker:
-      - image: cimg/base:2022.04
+      - image: cimg/base:2022.12
     steps:
       - checkout
       - setup_remote_docker:
@@ -30,7 +30,7 @@ jobs:
 
   docker-ubuntu-vnc-go:
     docker:
-      - image: cimg/base:2022.04
+      - image: cimg/base:2022.12
     steps:
       - checkout
       - setup_remote_docker:

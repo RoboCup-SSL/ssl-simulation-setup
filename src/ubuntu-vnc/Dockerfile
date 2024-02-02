@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV DISPLAY=:1 \
     VNC_PORT=5901 \

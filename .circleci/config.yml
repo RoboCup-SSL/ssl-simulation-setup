@@ -5,8 +5,7 @@ jobs:
       - image: cimg/base:2024.01
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.11
+      - setup_remote_docker
       - run: |
           TAG=${CIRCLE_TAG:1}
           TAG=${TAG:-latest}
@@ -19,8 +18,7 @@ jobs:
       - image: cimg/base:2024.01
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.11
+      - setup_remote_docker
       - run: |
           TAG=${CIRCLE_TAG:1}
           TAG=${TAG:-latest}
@@ -33,8 +31,7 @@ jobs:
       - image: cimg/base:2024.01
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.11
+      - setup_remote_docker
       - run: |
           TAG=${CIRCLE_TAG:1}
           TAG=${TAG:-latest}

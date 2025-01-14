@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   portainer:
-    image: portainer/portainer-ce:2.19.4-alpine
+    image: portainer/portainer-ce:2.19.4-alpine@sha256:214cb7f6c4034420d4f74de81492bf8fddede0677d2f12171955e075ac2ac341
     command:
       - "--admin-password-file"
       - "/tmp/portainer_password"
@@ -15,7 +15,7 @@ services:
       - expose
 
   prometheus:
-    image: prom/prometheus:v2.49.1
+    image: prom/prometheus:v2.49.1@sha256:beb5e30ffba08d9ae8a7961b9a2145fc8af6296ff2a4f463df7cd722fcbfc789
     restart: unless-stopped
     #    ports:
     #      - 9090:9090
@@ -31,7 +31,7 @@ services:
       - expose
 
   node-exporter:
-    image: prom/node-exporter:v1.7.0
+    image: prom/node-exporter:v1.7.0@sha256:4cb2b9019f1757be8482419002cb7afe028fdba35d47958829e4cfeaf6246d80
     restart: unless-stopped
     #    ports:
     #      - 9100:9100
@@ -48,7 +48,7 @@ services:
       - expose
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    image: gcr.io/cadvisor/cadvisor:v0.47.2@sha256:e6c562b5e983f13624898b5b6a902c71999580dc362022fc327c309234c485d7
     restart: unless-stopped
     #    ports:
     #      - 8080:8080
@@ -61,7 +61,7 @@ services:
       - expose
 
   grafana:
-    image: grafana/grafana:7.5.15
+    image: grafana/grafana:7.5.15@sha256:0a4a31f1922e01645702401ac550fd89346244e2868cb9620f32f87fac0b7a5a
     restart: unless-stopped
     #    ports:
     #      - 3000:3000

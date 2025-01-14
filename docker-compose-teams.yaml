@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   team-tigers:
-    image: robocupssl/ubuntu-vnc-java:latest
+    image: robocupssl/ubuntu-vnc-java:latest@sha256:14e9d480a2e2f3e1445ebe1c8c196c22a8018349f5fcb252976501cba587bb8a
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -21,7 +21,7 @@ services:
       - guacamole
 
   team-erforce:
-    image: roboticserlangen/robocup:latest
+    image: roboticserlangen/robocup:latest@sha256:9e82eb4e6a03efb4fd793c22b17be9158d4a5266aacfd05c0072c96233b0e06f
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -39,7 +39,7 @@ services:
       - guacamole
 
   team-ubcthunderbots:
-    image: ubcthunderbots/tbots-software-env:0.0.1
+    image: ubcthunderbots/tbots-software-env:0.0.1@sha256:627851be55c2238eda828a4a52705195ab247d6e215c65b17e9e4c54e37a641c
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -57,7 +57,7 @@ services:
       - guacamole
 
   team-robocin:
-    image: robocin/ssl-unification-robocup:latest
+    image: robocin/ssl-unification-robocup:latest@sha256:542d3637f229f720101429b604a88af0a8bdaa7ef0117c489e00d91ac92a30e3
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -75,7 +75,7 @@ services:
       - guacamole
 
   team-robofei:
-    image: bollos00/robofeissl-ssl-strategy:latest
+    image: bollos00/robofeissl-ssl-strategy:latest@sha256:843b4fb4b46950d96ca2b0183a0b6be67ca87b61a759cab61230bb10e69eaa52
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -93,7 +93,7 @@ services:
       - guacamole
 
   team-roboteamtwente:
-    image: roboteamtwente/practice_tournament:latest
+    image: roboteamtwente/practice_tournament:latest@sha256:c8e8767669998083668d02d9aa4faae186f67258990cedfa12ee2e8e03fbc919
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -111,7 +111,7 @@ services:
       - guacamole
 
   team-uroborus:
-    image: uroborus/larcmacs:latest
+    image: uroborus/larcmacs:latest@sha256:d6f73b5c3b7efaf37d1765ca54db0645c49f8b538affd847fe7c9ddb8268f16f
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -129,7 +129,7 @@ services:
       - guacamole
 
   team-roboime:
-    image: roboime/robocup2021:latest
+    image: roboime/robocup2021:latest@sha256:082c60f7eb4ed6b1a48b57cf270b027dec0864727dc84843fdf3d206bd6f964a
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -147,7 +147,7 @@ services:
       - guacamole
 
   team-robodragons:
-    image: sslrobodragons/robodragons-system:ubuntu20.04-robocup2021-simulation-7db95ab
+    image: sslrobodragons/robodragons-system:ubuntu20.04-robocup2021-simulation-7db95ab@sha256:c5be6510da66e95a3bf23a50ce75e2c65670b959c22321844fcefed571a1768c
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -165,7 +165,7 @@ services:
       - guacamole
 
   team-src:
-    image: xlq57913/robocup2021-src:latest
+    image: xlq57913/robocup2021-src:latest@sha256:42ea9e0995a3afe1aa3b66fccce840bf17252f38bb226b2153053de004bd5e61
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -183,7 +183,7 @@ services:
       - guacamole
 
   team-kiks:
-    image: ghcr.io/kiksworks/ssl-simulation-env:main
+    image: ghcr.io/kiksworks/ssl-simulation-env:main@sha256:fe5489c5c0aaf49f1fba6167e91ea05f04fdcb61f4f49286c4d0924fdff5450d
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -201,7 +201,7 @@ services:
       - guacamole
 
   team-kgpkubs:
-    image: nisarg1631/kgpkubs:latest
+    image: nisarg1631/kgpkubs:latest@sha256:30f578205e60b8897d2b55e58b51c5ce4794db142c37dd253a2689ab254e71c9
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -219,7 +219,7 @@ services:
       - guacamole
 
   team-omid:
-    image: robocupssl/omid:latest
+    image: robocupssl/omid:latest@sha256:3c57f8eceaf0047772255f7620b9d5475a88403902e341fa10f37064b303f8b7
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
@@ -237,7 +237,7 @@ services:
       - guacamole
 
   team-robojackets:
-    image: kylestach/robojackets-robocup-software:latest
+    image: kylestach/robojackets-robocup-software:latest@sha256:15018a823b758a913b77be5cac4364d88d148d9fc9b9cbd04a11577d42d57e24
     user: "1000"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"

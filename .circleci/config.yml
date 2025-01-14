@@ -2,7 +2,7 @@ version: 2
 jobs:
   docker-ubuntu-vnc:
     docker:
-      - image: cimg/base:2024.01
+      - image: cimg/base:2024.01@sha256:ec89f18df94c933b1f4a3dc05616759d5fc39e5a48a75cf9ad85f88a39179074
     steps:
       - checkout
       - setup_remote_docker
@@ -15,7 +15,7 @@ jobs:
 
   docker-ubuntu-vnc-java:
     docker:
-      - image: cimg/base:2024.01
+      - image: cimg/base:2024.01@sha256:ec89f18df94c933b1f4a3dc05616759d5fc39e5a48a75cf9ad85f88a39179074
     steps:
       - checkout
       - setup_remote_docker
@@ -28,7 +28,7 @@ jobs:
 
   docker-ubuntu-vnc-go:
     docker:
-      - image: cimg/base:2024.01
+      - image: cimg/base:2024.01@sha256:ec89f18df94c933b1f4a3dc05616759d5fc39e5a48a75cf9ad85f88a39179074
     steps:
       - checkout
       - setup_remote_docker

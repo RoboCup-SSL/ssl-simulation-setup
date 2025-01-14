@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   caddy:
-    image: caddy:2-alpine
+    image: caddy:2-alpine@sha256:b60636634fd2aebaf9460cf60997ad83aad6b139318d5713e2b78a60f52b139c
     restart: unless-stopped
     ports:
       - "80:80/tcp"
@@ -17,7 +17,7 @@ services:
       - expose
 
   guacd:
-    image: guacamole/guacd:1.5.4
+    image: guacamole/guacd:1.5.4@sha256:8a6fd083213053cd0217663c24ab59245ebfe442b6717e606ebea25707ace650
     restart: unless-stopped
     volumes:
       - guacd-drive:/drive:rw
@@ -27,7 +27,7 @@ services:
       - match
 
   postgres:
-    image: postgres:16
+    image: postgres:16@sha256:756fa65445c9e990938239cc590da48cace476e76794bc145fd220b80442229e
     restart: unless-stopped
     environment:
       PGDATA: /var/lib/postgresql/data/guacamole
@@ -43,7 +43,7 @@ services:
       - guacamole
 
   guacamole:
-    image: guacamole/guacamole:1.5.4
+    image: guacamole/guacamole:1.5.4@sha256:a7763a8057036c12b4fde8a6725e5200a434aa74f0a4cff726e70718ee4521b4
     restart: unless-stopped
     environment:
       GUACD_HOSTNAME: guacd
@@ -61,7 +61,7 @@ services:
       - expose
 
   ssl-vision-client:
-    image: robocupssl/ssl-vision-client:1.7.3
+    image: robocupssl/ssl-vision-client:1.7.3@sha256:265f8cc1c620a9d83224b739e605abc8a4ffef4e75735047999e16e21a577e79
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
     ports:
@@ -71,7 +71,7 @@ services:
       - expose
 
   ssl-status-board:
-    image: robocupssl/ssl-status-board:2.10.4
+    image: robocupssl/ssl-status-board:2.10.4@sha256:74a5eef17dbf34ec88b4061c31ce6e492188380c9568cd7f4c6f314de02b7583
     restart: unless-stopped
     ports:
       - 8082/tcp
@@ -80,7 +80,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:3.9.0
+    image: robocupssl/ssl-game-controller:3.9.0@sha256:2511cd0a2c9ff4cb7fd5d1ee7b32a457b6c6fc10276d0d2ce5ba07f894c85451
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -100,7 +100,7 @@ services:
       - expose
 
   ssl-game-controller-public:
-    image: g3force/proxy-tcp-udp-mc:0.2.1
+    image: g3force/proxy-tcp-udp-mc:0.2.1@sha256:05b342dfd63c57080c8225a2faa89164cf5b1bdeed58a904b8300ae078edfc6f
     command:
       - "tcp,:10007,ssl-game-controller-private:10007,AutoRef"
       - "tcp,:10008,ssl-game-controller-private:10008,Team"
@@ -118,7 +118,7 @@ services:
       - match
 
   simulator-private:
-    image: roboticserlangen/simulatorcli:commit-6a4e1c06533b
+    image: roboticserlangen/simulatorcli:commit-6a4e1c06533b@sha256:19d0df91697c82ebfd1f86eca5ccf6b8be2f0d64b22078725257c3a5856b5ddc
 #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
     environment:
@@ -133,7 +133,7 @@ services:
       - simulator
 
   simulator:
-    image: g3force/proxy-tcp-udp-mc:0.2.1
+    image: g3force/proxy-tcp-udp-mc:0.2.1@sha256:05b342dfd63c57080c8225a2faa89164cf5b1bdeed58a904b8300ae078edfc6f
     command:
       - "udp,:10301,simulator-private:10301,Blue"
       - "udp,:10302,simulator-private:10302,Yellow"
@@ -150,7 +150,7 @@ services:
       - match
 
   ssl-simulation-controller:
-    image: robocupssl/ssl-simulation-controller:0.12.1
+    image: robocupssl/ssl-simulation-controller:0.12.1@sha256:7765761a838da09289e0039d54d21fc3ca37bcf124dd15749ee416f440c92067
     command:
       - "-refereeAddress"
       - "224.5.23.1:11003"
@@ -169,7 +169,7 @@ services:
       - simulator
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:1.5.2
+    image: robocupssl/ssl-auto-recorder:1.5.2@sha256:b2aad304b99b30c2de272756c30523826bb6fe8beb003efd7a0b4dc9b5318988
     restart: unless-stopped
     volumes:
       - ssl-auto-recorder-data:/data:rw
@@ -178,7 +178,7 @@ services:
 
   # Maintainer is a container for the maintainers of the event for testing purposes
   maintainer:
-    image: robocupssl/ubuntu-vnc-go:latest
+    image: robocupssl/ubuntu-vnc-go:latest@sha256:c14dce09b856fd3a08e27bff8109c3ea8bc6260de721e9fe6a82cda6c638954c
     restart: unless-stopped
     mem_limit: 2g
     cpus: 2
@@ -197,7 +197,7 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee:1.2.0
+    image: tigersmannheim/auto-referee:1.2.0@sha256:34d74deee2140e9fc2b8549f156422ccc2213969e33463ed23444543c6b120d7
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc", "-a" ]
     # Run without UI in active mode
@@ -212,7 +212,7 @@ services:
       - guacamole
 
   autoref-erforce:
-    image: roboticserlangen/autoref:commit-6f15f574ea80
+    image: roboticserlangen/autoref:commit-6f15f574ea80@sha256:3d7c5933c12eb193a1fefcfd6aba86fba42875c588cc883dc20d0bfcb66b11cb
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
     restart: unless-stopped

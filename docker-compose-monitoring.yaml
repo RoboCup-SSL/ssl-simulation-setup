@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   portainer:
-    image: portainer/portainer-ce:2.19.4-alpine
+    image: portainer/portainer-ce:2.26.0-alpine@sha256:534bd640e34ba35bc9365a25062bd78a52ff05f45085adf8ba6979f8b5aa47d4
     command:
       - "--admin-password-file"
       - "/tmp/portainer_password"

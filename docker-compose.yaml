@@ -43,7 +43,7 @@ services:
       - guacamole
 
   guacamole:
-    image: guacamole/guacamole:1.5.4
+    image: guacamole/guacamole:1.5.5
     restart: unless-stopped
     environment:
       GUACD_HOSTNAME: guacd

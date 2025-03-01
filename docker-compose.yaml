@@ -47,7 +47,7 @@ services:
       GUACD_HOSTNAME: guacd
       POSTGRESQL_DATABASE: guacamole_db
       POSTGRESQL_HOSTNAME: postgres
-      POSTGRESQL_PASSWORD:
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRESQL_USER: guacamole_user
     depends_on:
       - guacd

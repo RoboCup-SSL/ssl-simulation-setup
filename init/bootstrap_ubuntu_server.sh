@@ -16,7 +16,9 @@ if [[ -z "${FIELD_NAME}" ]]; then
 fi
 
 set -euo pipefail
-set -x
+
+# Plain output for buildkit (docker compose)
+export BUILDKIT_PROGRESS=plain
 
 # Update system
 if ! dpkg -l | grep git; then

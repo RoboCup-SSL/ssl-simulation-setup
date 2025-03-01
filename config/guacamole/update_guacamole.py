@@ -4,8 +4,11 @@ import json
 import os
 import secrets
 import string
+import urllib3
 
 from GuacamoleClient import GuacamoleClient
+
+urllib3.disable_warnings()
 
 guacamoleAdminUser = "guacadmin"
 guacamoleAdminStandardPassword = "guacadmin"

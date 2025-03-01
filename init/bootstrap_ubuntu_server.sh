@@ -66,4 +66,5 @@ sleep 30s
 ./config/caddy/generate_caddyfile.py
 ./config/caddy/update_caddy_config.sh
 
+docker compose -f docker-compose-teams.yaml pull --quiet
 docker compose -f docker-compose-teams.yaml up -d

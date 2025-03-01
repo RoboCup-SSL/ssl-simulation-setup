@@ -58,6 +58,7 @@ echo -n "${ROOT_DOMAIN}" >config/root_domain
 echo -n "${FIELD_NAME}" >config/field_name
 ./config/docker/init.sh
 ./config/caddy/generate_caddyfile.py
+docker compose build
 docker compose pull --quiet
 docker compose up -d
 sleep 30s

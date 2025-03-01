@@ -61,6 +61,7 @@ pip install jinja2 requests
 Now, you can spin up the field:
 ```shell
 # Start all containers and keep showing the log in the foreground (ctrl+c will stop everything again)
+docker compose build
 docker compose up
 # Or alternatively run all containers in the background:
 docker compose up -d

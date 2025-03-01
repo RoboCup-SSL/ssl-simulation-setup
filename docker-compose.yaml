@@ -98,14 +98,15 @@ services:
       - expose
 
   ssl-game-controller-public:
-    image: g3force/proxy-tcp-udp-mc:0.2.1
-    command:
-      - "tcp,:10007,ssl-game-controller-private:10007,AutoRef"
-      - "tcp,:10008,ssl-game-controller-private:10008,Team"
-      - "tcp,:10011,ssl-game-controller-private:10011,RemoteCtrl"
-      - "mc,224.5.23.1:11003,224.5.23.1:10003,Referee"
-      - "mc,224.5.23.2:10006,224.5.23.2:11006,Vision"
-      - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
+    image: multisocat
+    build: ./src/multisocat
+    environment:
+      SOCAT_AUTOREF: "TCP4-LISTEN:10007,fork TCP4:ssl-game-controller-private:10007"
+      SOCAT_TEAM: "TCP4-LISTEN:10008,fork TCP4:ssl-game-controller-private:10008"
+      SOCAT_REMOTECTRL: "TCP4-LISTEN:10011,fork TCP4:ssl-game-controller-private:10011"
+      SOCAT_REFEREE: "UDP-LISTEN:224.5.23.1:11003 UDP4:224.5.23.1:10003"
+      SOCAT_VISION: "UDP-LISTEN:224.5.23.2:10006 UDP4:224.5.23.2:11006"
+      SOCAT_TRACKER: "UDP-LISTEN:224.5.23.2:10010 UDP4:224.5.23.2:11010"
     restart: unless-stopped
     ports:
       - "10007/tcp"
@@ -131,13 +132,14 @@ services:
       - simulator
 
   simulator:
-    image: g3force/proxy-tcp-udp-mc:0.2.1
-    command:
-      - "udp,:10301,simulator-private:10301,Blue"
-      - "udp,:10302,simulator-private:10302,Yellow"
-      - "mc,224.5.23.2:10020,224.5.23.2:10006,Vision"
-      - "mc,224.5.23.1:10003,224.5.23.1:11003,Referee"
-      - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
+    image: multisocat
+    build: ./src/multisocat
+    environment:
+      SOCAT_BLUE: "UDP-LISTEN:10301 simulator-private:10301"
+      SOCAT_YELLOW: "UDP-LISTEN:10302 simulator-private:10302"
+      SOCAT_VISION: "UDP-LISTEN:224.5.23.2:10020 224.5.23.2:10006"
+      SOCAT_REFEREE: "UDP-LISTEN:224.5.23.1:10003 224.5.23.1:11003"
+      SOCAT_TRACKER: "UDP-LISTEN:224.5.23.2:10010 224.5.23.2:11010"
     restart: unless-stopped
     ports:
       - "10300/udp"

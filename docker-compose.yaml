@@ -169,7 +169,7 @@ services:
       - simulator
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:1.8.0
+    image: robocupssl/ssl-auto-recorder:1.8.1
     restart: unless-stopped
     volumes:
       - ssl-auto-recorder-data:/data:rw

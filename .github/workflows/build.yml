@@ -1,0 +1,16 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bootstrap
+        run: ./init/bootstrap_ubuntu_server.sh localhost field-a
+      - name: Cleanup
+        run: docker compose down -v

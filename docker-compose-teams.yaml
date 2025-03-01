@@ -12,8 +12,8 @@ services:
     volumes:
       - team-tigers-data:/home/default:rw
     ports:
-      - 5901/tcp
-      - 2222/tcp
+      - "5901/tcp"
+      - "2222/tcp"
     networks:
       - match
       - guacamole
@@ -30,8 +30,8 @@ services:
     volumes:
       - team-robocin-data:/home/default:rw
     ports:
-      - 5901/tcp
-      - 2222/tcp
+      - "5901/tcp"
+      - "2222/tcp"
     networks:
       - match
       - guacamole
@@ -48,8 +48,8 @@ services:
     volumes:
       - team-robodragons-data:/home/default:rw
     ports:
-      - 5901/tcp
-      - 2222/tcp
+      - "5901/tcp"
+      - "2222/tcp"
     networks:
       - match
       - guacamole
@@ -66,8 +66,8 @@ services:
     volumes:
       - team-kiks-data:/home/default:rw
     ports:
-      - 5901/tcp
-      - 2222/tcp
+      - "5901/tcp"
+      - "2222/tcp"
     networks:
       - match
       - guacamole

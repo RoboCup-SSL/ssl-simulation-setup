@@ -33,7 +33,7 @@ services:
       POSTGRES_PASSWORD:
       POSTGRES_USER: guacamole_user
     ports:
-      - 5432/tcp
+      - "5432/tcp"
     volumes:
       - ./init/postgres:/docker-entrypoint-initdb.d:ro
       - postgres-data:/var/lib/postgresql/data:rw
@@ -53,7 +53,7 @@ services:
       - guacd
       - postgres
     ports:
-      - 8080/tcp # Guacamole is on :8080/guacamole, not /.
+      - "8080/tcp" # Guacamole is on :8080/guacamole, not /.
     networks:
       - guacamole
       - expose
@@ -63,7 +63,7 @@ services:
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
     ports:
-      - 8082/tcp
+      - "8082/tcp"
     networks:
       - match
       - expose
@@ -72,7 +72,7 @@ services:
     image: robocupssl/ssl-status-board:2.11.7
     restart: unless-stopped
     ports:
-      - 8082/tcp
+      - "8082/tcp"
     networks:
       - match
       - expose
@@ -92,7 +92,7 @@ services:
     volumes:
       - ssl-game-controller-config:/config:rw
     ports:
-      - 8081/tcp
+      - "8081/tcp"
     networks:
       - referee
       - expose
@@ -108,9 +108,9 @@ services:
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
     restart: unless-stopped
     ports:
-      - 10007/tcp
-      - 10008/tcp
-      - 10011/tcp
+      - "10007/tcp"
+      - "10008/tcp"
+      - "10011/tcp"
     networks:
       - referee
       - match
@@ -124,9 +124,9 @@ services:
       GEOMETRY: "2020"
       REALISM: "RC2021"
     ports:
-      - 10300/udp
-      - 10301/udp
-      - 10302/udp
+      - "10300/udp"
+      - "10301/udp"
+      - "10302/udp"
     networks:
       - simulator
 
@@ -140,9 +140,9 @@ services:
       - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
     restart: unless-stopped
     ports:
-      - 10300/udp
-      - 10301/udp
-      - 10302/udp
+      - "10300/udp"
+      - "10301/udp"
+      - "10302/udp"
     networks:
       - simulator
       - match
@@ -188,8 +188,8 @@ services:
       - ssl-auto-recorder-data:/ssl-auto-recorder-data:rw
       - ssl-game-controller-config:/ssl-game-controller-config:rw
     ports:
-      - 5901/tcp
-      - 2222/tcp
+      - "5901/tcp"
+      - "2222/tcp"
     networks:
       - match
       - guacamole
@@ -204,7 +204,7 @@ services:
     environment:
       - VNC_PASSWORD=${VNC_PW}
     ports:
-      - 5900/tcp
+      - "5900/tcp"
     networks:
       - match
       - guacamole
@@ -217,7 +217,7 @@ services:
     environment:
       - VNC_PASSWORD=${VNC_PW}
     ports:
-      - 5900/tcp
+      - "5900/tcp"
     networks:
       - match
       - guacamole

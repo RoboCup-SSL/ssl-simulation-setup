@@ -59,7 +59,7 @@ services:
       - expose
 
   ssl-vision-client:
-    image: robocupssl/ssl-vision-client:1.8.1
+    image: robocupssl/ssl-vision-client:1.8.2
     command: [ "-visionAddress", "224.5.23.2:10006" ]
     restart: unless-stopped
     ports:
@@ -69,7 +69,7 @@ services:
       - expose
 
   ssl-status-board:
-    image: robocupssl/ssl-status-board:2.11.6
+    image: robocupssl/ssl-status-board:2.11.7
     restart: unless-stopped
     ports:
       - 8082/tcp
@@ -148,7 +148,7 @@ services:
       - match
 
   ssl-simulation-controller:
-    image: robocupssl/ssl-simulation-controller:0.12.1
+    image: robocupssl/ssl-simulation-controller:0.12.2
     command:
       - "-refereeAddress"
       - "224.5.23.1:11003"
@@ -167,7 +167,7 @@ services:
       - simulator
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:1.8.1
+    image: robocupssl/ssl-auto-recorder:1.8.2
     restart: unless-stopped
     volumes:
       - ssl-auto-recorder-data:/data:rw

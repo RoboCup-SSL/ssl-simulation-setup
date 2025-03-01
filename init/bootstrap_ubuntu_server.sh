@@ -21,14 +21,14 @@ set -euo pipefail
 export BUILDKIT_PROGRESS=plain
 
 # Update system
-if ! dpkg -l | grep git; then
+if ! dpkg -l | grep git &>/dev/null; then
   sudo apt update
   sudo apt dist-upgrade -y
   sudo apt install -y git vim python3 python3-requests python3-jinja2 htop
 fi
 
 # Install docker based on https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-if ! dpkg -l | grep docker-ce; then
+if ! dpkg -l | grep docker-ce &>/dev/null; then
   sudo apt install -y apt-transport-https \
     ca-certificates \
     curl \
@@ -58,6 +58,7 @@ echo -n "${ROOT_DOMAIN}" >config/root_domain
 echo -n "${FIELD_NAME}" >config/field_name
 ./config/docker/init.sh
 ./config/caddy/generate_caddyfile.py
+docker compose pull --quiet
 docker compose up -d
 sleep 30s
 ./config/guacamole/update_guacamole.py

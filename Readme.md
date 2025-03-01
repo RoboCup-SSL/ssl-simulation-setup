@@ -51,6 +51,10 @@ This will generate passwords and an SSH key and put them at the right places.
 
 Next, generate the initial Caddyfile for the webserver:
 ```shell
+# You may need/want to have a virtual environment to make python dependencies available (or install it globally)
+python3 -m venv .venv
+source .venv/bin/activate
+pip install jinja2 requests
 ./config/caddy/generate_caddyfile.py
 ```
 

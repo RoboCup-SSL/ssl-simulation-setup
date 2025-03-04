@@ -1,7 +1,7 @@
 services:
   team-tigers:
     image: robocupssl/ubuntu-vnc-java:latest
-    user: "1000"
+    user: "default"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -20,7 +20,7 @@ services:
 
   team-robocin:
     image: robocin/ssl-unification-robocup:latest
-    user: "1000"
+    user: "default"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -38,7 +38,7 @@ services:
 
   team-robodragons:
     image: sslrobodragons/robodragons-system:ubuntu20.04-robocup2021-simulation-7db95ab
-    user: "1000"
+    user: "default"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"
@@ -56,7 +56,7 @@ services:
 
   team-kiks:
     image: ghcr.io/kiksworks/ssl-simulation-env:main
-    user: "1000"
+    user: "default"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"
     cpus: "${TEAM_LIMIT_CPU}"

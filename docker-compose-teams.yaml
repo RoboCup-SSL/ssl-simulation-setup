@@ -55,7 +55,7 @@ services:
       - guacamole
 
   team-kiks:
-    image: ghcr.io/kiksworks/ssl-simulation-env:main
+    image: robocupssl/ubuntu-vnc-java:latest
     user: "default"
     restart: unless-stopped
     mem_limit: "${TEAM_LIMIT_MEM}"

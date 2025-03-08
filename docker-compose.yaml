@@ -78,7 +78,7 @@ services:
       - expose
 
   ssl-game-controller-private:
-    image: robocupssl/ssl-game-controller:3.12.9
+    image: robocupssl/ssl-game-controller:3.13.1
     command:
       - "-visionAddress"
       - "224.5.23.2:11006"
@@ -210,7 +210,7 @@ services:
       - guacamole
 
   autoref-erforce:
-    image: roboticserlangen/autoref:commit-6f15f574ea80
+    image: roboticserlangen/autoref:2025.0.0
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
     restart: unless-stopped

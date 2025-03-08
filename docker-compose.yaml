@@ -117,7 +117,7 @@ services:
 
   simulator-private:
     image: roboticserlangen/simulatorcli:commit-6a4e1c06533b
-#    image: robocupssl/grsim:2.4.0
+    #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
     environment:
       # ER-Force options
@@ -195,11 +195,12 @@ services:
       - guacamole
 
   autoref-tigers:
-    image: tigersmannheim/auto-referee-vnc:1.5.2
-    # Run with UI (note: need to connect to the UI once to start the autoRef)
-    # command: [ "vnc", "-a" ]
     # Run without UI in active mode
+    image: tigersmannheim/auto-referee:1.5.2
     command: [ "-hl", "-a" ]
+    # Run with UI (note: need to connect to the UI once to start the autoRef)
+    # image: tigersmannheim/auto-referee-vnc:1.5.2
+    # command: [ "vnc", "-a" ]
     restart: unless-stopped
     environment:
       - VNC_PASSWORD=${VNC_PW}

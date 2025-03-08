@@ -9,7 +9,7 @@ apt-get install -y \
   tigervnc-standalone-server \
   openssh-server \
   iproute2 \
-  vim wget git unzip
+  vim wget git unzip htop
 
 apt-get purge -y pm-utils xscreensaver*
 apt-get autoremove -y

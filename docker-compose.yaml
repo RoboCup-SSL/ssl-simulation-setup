@@ -98,7 +98,7 @@ services:
       - expose
 
   ssl-game-controller-public:
-    image: g3force/proxy-tcp-udp-mc:0.2.2
+    image: g3force/proxy-tcp-udp-mc:0.3.0
     command:
       - "tcp,:10007,ssl-game-controller-private:10007,AutoRef"
       - "tcp,:10008,ssl-game-controller-private:10008,Team"
@@ -131,7 +131,7 @@ services:
       - simulator
 
   simulator:
-    image: g3force/proxy-tcp-udp-mc:0.2.2
+    image: g3force/proxy-tcp-udp-mc:0.3.0
     command:
       - "udp,:10301,simulator-private:10301,Blue"
       - "udp,:10302,simulator-private:10302,Yellow"

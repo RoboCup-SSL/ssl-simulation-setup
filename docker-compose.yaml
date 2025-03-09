@@ -60,7 +60,7 @@ services:
 
   ssl-vision-client:
     image: robocupssl/ssl-vision-client:1.8.2
-    command: [ "-visionAddress", "224.5.23.2:10006" ]
+    command: [ "-visionAddress", "224.5.23.2:10020" ]
     restart: unless-stopped
     ports:
       - "8082/tcp"
@@ -77,15 +77,15 @@ services:
       - match
       - expose
 
-  ssl-game-controller-private:
+  ssl-game-controller:
     image: robocupssl/ssl-game-controller:3.13.1
     command:
       - "-visionAddress"
-      - "224.5.23.2:11006"
+      - "224.5.23.2:10020"
       - "-trackerAddress"
-      - "224.5.23.2:11010"
+      - "224.5.23.2:10010"
       - "-publishAddress"
-      - "224.5.23.1:11003"
+      - "224.5.23.1:10003"
       - "-address"
       - ":8081"
     restart: unless-stopped
@@ -94,28 +94,10 @@ services:
     ports:
       - "8081/tcp"
     networks:
-      - referee
+      - match
       - expose
 
-  ssl-game-controller-public:
-    image: g3force/proxy-tcp-udp-mc:0.3.0
-    command:
-      - "tcp,:10007,ssl-game-controller-private:10007,AutoRef"
-      - "tcp,:10008,ssl-game-controller-private:10008,Team"
-      - "tcp,:10011,ssl-game-controller-private:10011,RemoteCtrl"
-      - "mc,224.5.23.1:11003,224.5.23.1:10003,Referee"
-      - "mc,224.5.23.2:10006,224.5.23.2:11006,Vision"
-      - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
-    restart: unless-stopped
-    ports:
-      - "10007/tcp"
-      - "10008/tcp"
-      - "10011/tcp"
-    networks:
-      - referee
-      - match
-
-  simulator-private:
+  simulator:
     image: roboticserlangen/simulatorcli:commit-6a4e1c06533b
     #    image: robocupssl/grsim:2.4.0
     restart: unless-stopped
@@ -128,34 +110,17 @@ services:
       - "10301/udp"
       - "10302/udp"
     networks:
-      - simulator
-
-  simulator:
-    image: g3force/proxy-tcp-udp-mc:0.3.0
-    command:
-      - "udp,:10301,simulator-private:10301,Blue"
-      - "udp,:10302,simulator-private:10302,Yellow"
-      - "mc,224.5.23.2:10020,224.5.23.2:10006,Vision"
-      - "mc,224.5.23.1:10003,224.5.23.1:11003,Referee"
-      - "mc,224.5.23.2:10010,224.5.23.2:11010,Tracker"
-    restart: unless-stopped
-    ports:
-      - "10300/udp"
-      - "10301/udp"
-      - "10302/udp"
-    networks:
-      - simulator
       - match
 
   ssl-simulation-controller:
     image: robocupssl/ssl-simulation-controller:0.13.0
     command:
       - "-refereeAddress"
-      - "224.5.23.1:11003"
+      - "224.5.23.1:10003"
       - "-visionAddress"
       - "224.5.23.2:10020"
       - "-trackerAddress"
-      - "224.5.23.2:11010"
+      - "224.5.23.2:10010"
       - "-simControlPort"
       - "10300"
       - "-robotSpecConfig"
@@ -164,7 +129,7 @@ services:
     volumes:
       - ./config/ssl-simulation-controller:/config:ro
     networks:
-      - simulator
+      - match
 
   ssl-auto-recorder:
     image: robocupssl/ssl-auto-recorder:1.8.2
@@ -197,7 +162,7 @@ services:
   autoref-tigers:
     # Run without UI in active mode
     image: tigersmannheim/auto-referee:1.5.2
-    command: [ "-hl", "-a" ]
+    command: [ "-hl", "-a", "--visionAddress", "224.5.23.2:10020" ]
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # image: tigersmannheim/auto-referee-vnc:1.5.2
     # command: [ "vnc", "-a" ]
@@ -214,6 +179,7 @@ services:
     image: roboticserlangen/autoref:2025.0.0
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
+    command: [ "--vision-port", "10020" ]
     restart: unless-stopped
     environment:
       - VNC_PASSWORD=${VNC_PW}
@@ -236,6 +202,4 @@ volumes:
 networks:
   expose:
   match:
-  simulator:
-  referee:
   guacamole:

@@ -46,7 +46,7 @@ gc.{{ field_name }}.{{ root_domain }} {
         {% for user in gc_users %}{{ user.name }} {{ user.hash }}
         {% endfor %}
     }
-    reverse_proxy ssl-game-controller-private:8081
+    reverse_proxy ssl-game-controller:8081
 }
 
 vision.{{ field_name }}.{{ root_domain }} {

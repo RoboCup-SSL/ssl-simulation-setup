@@ -59,7 +59,7 @@ services:
       - expose
 
   ssl-vision-client:
-    image: robocupssl/ssl-vision-client:1.8.2
+    image: robocupssl/ssl-vision-client:1.8.3
     command: [ "-visionAddress", "224.5.23.2:10020" ]
     restart: unless-stopped
     ports:

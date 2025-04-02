@@ -176,7 +176,7 @@ services:
       - guacamole
 
   autoref-erforce:
-    image: roboticserlangen/autoref:2025.0.0
+    image: roboticserlangen/autoref:2025.1.0
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # command: [ "vnc" ]
     command: [ "--vision-port", "10020" ]

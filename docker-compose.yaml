@@ -69,7 +69,7 @@ services:
       - expose
 
   ssl-status-board:
-    image: robocupssl/ssl-status-board:2.13.1
+    image: robocupssl/ssl-status-board:2.15.2
     restart: unless-stopped
     ports:
       - "8082/tcp"

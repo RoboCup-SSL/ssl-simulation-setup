@@ -161,7 +161,7 @@ services:
 
   autoref-tigers:
     # Run without UI in active mode
-    image: tigersmannheim/auto-referee:1.5.5
+    image: tigersmannheim/auto-referee:1.6.0
     command: [ "-hl", "-a", "--visionAddress", "224.5.23.2:10020" ]
     # Run with UI (note: need to connect to the UI once to start the autoRef)
     # image: tigersmannheim/auto-referee-vnc:1.5.2

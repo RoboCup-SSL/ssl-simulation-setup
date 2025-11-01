@@ -29,7 +29,7 @@ services:
       - expose
 
   node-exporter:
-    image: prom/node-exporter:v1.9.1
+    image: prom/node-exporter:v1.10.2
     restart: unless-stopped
     #    ports:
     #      - 9100:9100

@@ -132,7 +132,7 @@ services:
       - match
 
   ssl-auto-recorder:
-    image: robocupssl/ssl-auto-recorder:1.9.1
+    image: robocupssl/ssl-auto-recorder:1.9.2
     restart: unless-stopped
     volumes:
       - ssl-auto-recorder-data:/data:rw

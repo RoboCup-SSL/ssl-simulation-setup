@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ce:2.38.0-alpine
+    image: portainer/portainer-ce:2.39.0-alpine
     command:
       - "--admin-password-file"
       - "/tmp/portainer_password"

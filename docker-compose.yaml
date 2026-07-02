@@ -78,7 +78,7 @@ services:
       - expose
 
   ssl-game-controller:
-    image: robocupssl/ssl-game-controller:3.21.0
+    image: robocupssl/ssl-game-controller:3.23.0
     command:
       - "-visionAddress"
       - "224.5.23.2:10020"

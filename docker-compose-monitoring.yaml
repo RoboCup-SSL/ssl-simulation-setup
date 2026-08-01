@@ -13,7 +13,7 @@ services:
       - expose
 
   prometheus:
-    image: prom/prometheus:v3.12.0
+    image: prom/prometheus:v3.13.2
     restart: unless-stopped
     #    ports:
     #      - 9090:9090
